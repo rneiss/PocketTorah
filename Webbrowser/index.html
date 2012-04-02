@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+		
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		
+		
+		  
+		  
+		 
+		<link rel="stylesheet" href="jquery.mobile-1.0rc2.min.css" type="text/css" />		
+		<link rel="stylesheet" href="style.css" type="text/css" />		
+		
+		<!-- iPad/iPhone specific css below, add after your main css >
+		 <link rel="stylesheet" media="only screen and (max-device-width: 1024px)" href="ipad.css" type="text/css" />		
+		 <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="iphone.css" type="text/css" />		
+		 -->
+		
+		<!-- If your application is targeting iOS BEFORE 4.0 you MUST put json2.js from http://www.JSON.org/json2.js into your www directory and include it here -->
+		<script type="text/javascript" charset="utf-8" src="js/jquery-1.7.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.0rc2.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/phonegap-1.3.0.js"></script>
+		<script type="text/javascript" charset="utf-8" src="js/jquery.highlight-3.js"></script>
+
+		
+		
+		<script type="text/javascript" charset="utf-8">
+			
+			
+		
+			function onBodyLoad(){		
+
+                window.translationToggleOn = 0;
+		
+				loadXML();
+				
+				
+			}
+			
+			
+			function loadXML(){
+								if (BrowserDetect.browser != "Safari"){
+								
+								 $("#browserOverlay").css("display","inline");
+
+								}
+
+				
+				if (window.XMLHttpRequest)
+				{
+					xhttp=new XMLHttpRequest();
+				}
+				
+				
+				xhttp.open("GET","content/aliyah.xml",false);
+				xhttp.send("");
+				xmlDoc=xhttp.responseXML; 
+				
+				var parshahInfo = ''
+				
+				var x=xmlDoc.getElementsByTagName("parsha"); //put all verses in an array
+				
+				
+				var origParshahBookName = "";
+				
+				
+				for (i=0;i<x.length;i++) //loop through every parsha
+				{
+					var parshahIndex = x[i].attributes.getNamedItem('num').value; //get current parsha number
+					var parshahHebName = x[i].attributes.getNamedItem('hebrew').value; //get current parsha number
+					var parshahEngName = x[i].attributes.getNamedItem('id').value; //get current parsha eng name				
+					var parshahBookName = (x[i].attributes.getNamedItem('verse').value.split(" ")[0]); //get current parsha haftarah book and push into array				
+					
+					if (origParshahBookName != parshahBookName)  /* creates headers for each book of the torah */
+					{
+						parshahInfo = parshahInfo + "<li class='ui-li ui-li-static ui-body-e'>"+parshahBookName+"</li>";
+						origParshahBookName = parshahBookName;
+					}
+					parshahInfo = parshahInfo + "<li class='ui-btn ui-btn-icon-right ui-li-has-arrow ui-li ui-btn-up-c' data-theme='c' style='text-align:right' onclick='loadKriyahSelect(\""+parshahIndex+"\",\""+parshahEngName+"\",\""+parshahHebName+"\",\""+parshahBookName+"\")'><div class='ui-btn-inner ui-li' aria-hidden='true'><div class='ui-btn-text'><a class='ui-link-inherit' href=''>" + parshahEngName + " - " +parshahHebName + "</a></div><span class='ui-icon ui-icon-arrow-r ui-icon-shadow'></span></div></li>"; //lists each parshah with a link to load needed variables and go to aliyah selection page 
+					
+					
+					document.getElementById('parshahList').innerHTML = parshahInfo;	//place the stylized content from above into placeholder
+					
+				}
+				
+			}
+			
+			function changeKriyahToggle(){
+				alert("You may need to reselect the parshah to see the updated text.");
+			}
+			
+			
+			function loadKriyahSelect(num,engname,hebname,bookName) {
+				document.getElementById('kriyahSelectHeader').innerHTML = engname + " - " + hebname ;
+				window.location.href='#kriyahSelect';
+				var index = num-1;
+				document.getElementById('aliyah-1-link').onclick=function() { loadAliyah(engname,index,0,bookName); }
+				document.getElementById('aliyah-2-link').onclick=function() { loadAliyah(engname,index,1,bookName); }
+				document.getElementById('aliyah-3-link').onclick=function() { loadAliyah(engname,index,2,bookName); }
+				document.getElementById('aliyah-4-link').onclick=function() { loadAliyah(engname,index,3,bookName); }
+				document.getElementById('aliyah-5-link').onclick=function() { loadAliyah(engname,index,4,bookName); }
+				document.getElementById('aliyah-6-link').onclick=function() { loadAliyah(engname,index,5,bookName); }
+				document.getElementById('aliyah-7-link').onclick=function() { loadAliyah(engname,index,6,bookName); }
+				document.getElementById('aliyah-M-link').onclick=function() { loadAliyah(engname,index,7,bookName); }
+				document.getElementById('aliyah-haftrah-link').onclick=function() { loadAliyah(engname,index,'H',bookName); }
+			//	document.getElementById('aliyah-commentary-link').onclick=function() { loadCommentary(engname,index,bookName); }
+				
+				
+				//	
+				
+				
+				
+			}			
+          
+            
+             
+            function loadCommentary(engname,index,bookName) {
+                
+                
+                document.getElementById('comtext').innerHTML = '';	
+
+                
+                if (window.XMLHttpRequest)
+				{
+					xhttp=new XMLHttpRequest();
+				}
+				
+				
+				xhttp.open("GET","content/aliyah.xml",false);
+				xhttp.send("");
+				xmlDoc=xhttp.responseXML; 
+				var zz=xmlDoc.getElementsByTagName("parsha")[index];
+
+                var numOfCommentaries=zz.getElementsByTagName("links")[0].getElementsByTagName("link").length;
+                
+                var comTextHTML = '';
+ 
+                
+
+                
+                for (i=0;i<(numOfCommentaries);i++) {
+                    if (zz.getElementsByTagName("links")[0].getElementsByTagName("link")[i].attributes.getNamedItem('rel').value != 'torah') {
+                    //alert(zz.getElementsByTagName("links")[0].getElementsByTagName("link")[i].attributes.getNamedItem('href').value);
+                    //alert(zz.getElementsByTagName("links")[0].getElementsByTagName("link")[i].attributes.getNamedItem('title').value);
+                         comTextHTML = comTextHTML + '<a class="ui-btn ui-btn-up-c ui-btn-corner-all ui-shadow ui-btn-up-undefined" data-wrapperels="span" data-inline="false" data-iconshadow="true" data-shadow="true" data-corners="true" href="" data-role="button" onclick="openSafari(\''+ zz.getElementsByTagName("links")[0].getElementsByTagName("link")[i].attributes.getNamedItem('href').value +'\');"><span class="ui-btn-inner ui-btn-corner-all ui-corner-top ui-corner-bottom"><span class="ui-btn-text">'+ zz.getElementsByTagName("links")[0].getElementsByTagName("link")[i].attributes.getNamedItem('title').value + '</span></span></a>';
+                    }
+                    
+
+                }
+
+               // comTextHTML = comTextHTML +'</ul>';
+                document.getElementById('comtext').innerHTML = comTextHTML;	
+                
+            }
+            
+            
+            
+            
+            
+			function loadAliyah(engname,num,display,bookName) {
+					changeTextSize();
+				//	changeTaameiHighlight();
+                    
+			
+			if (display == 7 || display == 'H') {
+			var fileName = display;
+			}
+			else { var fileName = display+1; }
+			jQuery.get('content/torah/labels/'+engname+'-'+fileName+'.txt', function(data) {window.wordStartTime = data.split(',');});
+		//	var audioFile = 'content/torah/audio/'+engname+'-'+fileName+'.mp3'
+			var audioFile = 'http://dl.dropbox.com/u/29508688/'+engname+'-'+fileName+'.mp3'
+		
+		
+		
+				if (window.XMLHttpRequest)
+				{
+					xhttp=new XMLHttpRequest();
+				}
+				
+				
+				xhttp.open("GET","content/aliyah.xml",false);
+				xhttp.send("");
+				xmlDoc=xhttp.responseXML; 
+				var z=xmlDoc.getElementsByTagName("parsha")[num];
+				window.splitHaftarah = 0;
+				window.numVerses = 55;
+
+            if (display != 'H') {
+			//check which reading option the user selected, and return the corresponding starting and ending verse of the aliyah as a string	
+				var el =  document.getElementById('kriyahToggle'); 
+				
+				if (kriyahToggle.value == "full") {
+					var aliyahBegin=z.getElementsByTagName("fullkriyah")[0].getElementsByTagName("aliyah")[display].attributes.getNamedItem('begin').value;
+					var aliyahEnd=z.getElementsByTagName("fullkriyah")[0].getElementsByTagName("aliyah")[display].attributes.getNamedItem('end').value;
+				}
+				
+				if (kriyahToggle.value == "tri1") {
+					var aliyahBegin=z.getElementsByTagName("triennial")[0].getElementsByTagName("year")[0].getElementsByTagName("aliyah")[display].attributes.getNamedItem('begin').value;
+					var aliyahEnd=z.getElementsByTagName("triennial")[0].getElementsByTagName("year")[0].getElementsByTagName("aliyah")[display].attributes.getNamedItem('end').value;
+				}
+				
+				if (kriyahToggle.value == "tri2") {
+					var aliyahBegin=z.getElementsByTagName("triennial")[0].getElementsByTagName("year")[1].getElementsByTagName("aliyah")[display].attributes.getNamedItem('begin').value;
+					var aliyahEnd=z.getElementsByTagName("triennial")[0].getElementsByTagName("year")[1].getElementsByTagName("aliyah")[display].attributes.getNamedItem('end').value;
+				}
+				
+				if (kriyahToggle.value == "tri3") {
+					var aliyahBegin=z.getElementsByTagName("triennial")[0].getElementsByTagName("year")[2].getElementsByTagName("aliyah")[display].attributes.getNamedItem('begin').value;
+					var aliyahEnd=z.getElementsByTagName("triennial")[0].getElementsByTagName("year")[2].getElementsByTagName("aliyah")[display].attributes.getNamedItem('end').value;
+				}
+				
+				
+				window.numVerses=z.getElementsByTagName("fullkriyah")[0].getElementsByTagName("aliyah")[display].attributes.getNamedItem('numverses').value; //get total number of verses in the full aliyah
+				}
+			if (display == 'H') {
+				
+				var haftarah = z.attributes.getNamedItem('haftara').value;
+				haftarah = haftarah.split(";");
+				bookName = haftarah[0].split(" ")[0];
+
+				var aliyahBegin=haftarah[0].split(" ")[1];
+				var aliyahEnd=haftarah[0].split(" ")[3];
+				
+					if (typeof(haftarah[1]) != "undefined") {
+					window.splitHaftarah = 1;
+					var aliyahEndArray2 = haftarah[1].split(" ")[1];
+					window.aliyahEndChapter2 = aliyahEndArray2.split(":")[0];
+					window.aliyahEndVerse2 = aliyahEndArray2.split(":")[1];
+					var aliyahBeginArray2 = haftarah[1].split(" ")[3];
+					window.aliyahBeginChapter2 = aliyahBeginArray2.split(":")[0];
+					window.aliyahBeginVerse2 = aliyahBeginArray2.split(":")[1];     
+					}
+				
+				
+					
+						}
+                                        
+			//split string into individual numbers to more easily manipulate
+				var aliyahEndArray = aliyahEnd.split(":");
+				window.aliyahEndChapter = aliyahEndArray[0];
+				window.aliyahEndVerse = aliyahEndArray[1];
+				var aliyahBeginArray = aliyahBegin.split(":");
+				window.aliyahBeginChapter = aliyahBeginArray[0];
+				window.aliyahBeginVerse = aliyahBeginArray[1];      
+				
+			//convert real chapter and verse numbers to index numbers making it easier to itterate and reiterate through words and verses	
+				var begAliyahChapterIndex = window.aliyahBeginChapter -1; 
+				var begAliyahVerseIndex = window.aliyahBeginVerse -1;
+				var endAliyahChapterIndex = window.aliyahEndChapter -1;
+				var endAliyahVerseIndex = window.aliyahEndVerse -1;
+				
+				
+				
+				if (window.XMLHttpRequest)
+				{
+					xhttp=new XMLHttpRequest();
+				}
+				
+				xhttp.open("GET","content/torah/xml/"+ bookName +".xml",false);
+				xhttp.send("");
+				xmlDoc=xhttp.responseXML; 
+				
+				var changeChapter = 0;
+				var lastVerseinCurChapter=xmlDoc.getElementsByTagName("c")[begAliyahChapterIndex].getElementsByTagName("v").length; //				
+				var curVerseIndex=xmlDoc.getElementsByTagName("c")[begAliyahChapterIndex].getElementsByTagName("v")[begAliyahVerseIndex].attributes.getNamedItem('n').value; //				
+				var versesLeftinCurChapter = lastVerseinCurChapter- curVerse;
+				var curVerse=xmlDoc.getElementsByTagName("c")[begAliyahChapterIndex].getElementsByTagName("v")[begAliyahVerseIndex];
+				var hebtexthtml='<ul class="ui-listview" data-role="listview" data-theme="c">'
+				var x=curVerse;
+				var nextVerseIndex = begAliyahVerseIndex;
+				var nextChapterIndex = begAliyahChapterIndex
+                
+                
+				for (i=0;i<window.numVerses;i++)
+				{
+					var curVerseID = i + window.startingVersePos;
+					var linecount=x.getElementsByTagName("w").length;
+					
+		
+					hebtexthtml  = hebtexthtml  + '<li class="ui-li ui-li-static ui-body-c" style="text-align:right"><span class="v" id="verse'+ curVerseID +'">'+ (nextChapterIndex+1) + ":" + (nextVerseIndex+1) +'</span> ';  //This line includes the line number
+					
+					
+					
+					for (q=0;q<linecount;q++) //loop through and get every word in verse
+					{
+						var words=x.getElementsByTagName("w")[q].childNodes[0].nodeValue;  //get each word in the verse
+						
+						words = words.replace(/[/]/g,""); //replaces slashes with blank space
+						
+						hebtexthtml = hebtexthtml + '<span class="w">'+ words + ' </span>';
+						
+                    
+						
+					}
+					
+                    hebtexthtml = hebtexthtml + '</li>';
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    if (window.translationToggleOn == 1) {
+
+                    if (window.XMLHttpRequest)
+                    {
+                        xhttp=new XMLHttpRequest();
+                    }
+                    
+                    xhttp.open("GET","content/torah/translation/"+ bookName +".xml",false);
+                    xhttp.send("");
+                    quack=xhttp.responseXML; 
+                    
+                    
+                    hebtexthtml = hebtexthtml + '<li class="ui-li ui-li-static ui-body-c" style="direction: ltr;">' + quack.getElementsByTagName("c")[nextChapterIndex].getElementsByTagName("v")[nextVerseIndex].childNodes[0].nodeValue + '</li>';
+                    
+                       
+                 
+                    }
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+					nextVerseIndex = nextVerseIndex + 1;
+					 
+					
+					
+					if (nextVerseIndex < lastVerseinCurChapter){
+						//keep calm and carry on
+					}
+					else {
+						
+						nextVerseIndex = 0;
+						nextChapterIndex = nextChapterIndex + 1;
+					}
+					
+					if (changeChapter == 1) {
+					
+							nextVerseIndex = window.aliyahBeginVerse2 -2;
+							nextChapterIndex = window.aliyahBeginChapter2 -1;
+							endAliyahChapterIndex = window.aliyahEndChapter2 -1;
+							endAliyahVerseIndex = window.aliyahEndVerse2;
+							window.splitHaftarah = 0;
+							changeChapter = 0;
+                        
+					
+					}
+					
+					if ( (nextChapterIndex == endAliyahChapterIndex) && (nextVerseIndex == endAliyahVerseIndex) ) {
+					
+						
+							if (window.splitHaftarah == 0) {
+									i = (window.numVerses-2) ;
+									}
+							else if (window.splitHaftarah == 1) {
+							
+								changeChapter = 1;
+
+
+										}
+					}
+					
+					x = xmlDoc.getElementsByTagName("c")[nextChapterIndex].getElementsByTagName("v")[nextVerseIndex];
+					lastVerseinCurChapter=xmlDoc.getElementsByTagName("c")[nextChapterIndex].getElementsByTagName("v").length; //				
+					
+//					hebtexthtml = hebtexthtml + '</li>';
+					
+				}
+				hebtexthtml = hebtexthtml + '</ul>';
+				
+				
+				//this adds span to taamim
+			/*
+                var newString;
+				for(j=0; j<hebtexthtml.length; j++) {
+					if((hebtexthtml.charCodeAt(j)>1424
+						&& hebtexthtml.charCodeAt(j)<1455) || (hebtexthtml.charCodeAt(j)==1469))
+					{ newString = newString + "<span class='taamei'>" + hebtexthtml.charAt(j) + "</span>"; }
+					
+					else { newString = newString + hebtexthtml.charAt(j); }
+				}
+				hebtexthtml = newString;
+			
+             */
+             
+				hebtexthtml = hebtexthtml.replace(/־\ <\/span\>/g,"־</span>");
+				
+				
+				
+				document.getElementById('hebtext').innerHTML = hebtexthtml;	
+				
+				
+				//This function assigns id labels to each of the words -- these are used when calling audio files and hilight functions
+				$(".w").attr("id", function (arr) {
+							 return "word" + arr;
+							 })
+
+				
+                
+				
+				//load new audio file
+				function loadAudioFile(src){
+ $("#loadAudioOverlay").css("display","inline");
+
+					
+				document.getElementById('audio').setAttribute('src', src);			
+		
+			var audio = document.getElementById('audio');
+
+  $(audio).bind('progress', function() {
+    var loaded = parseInt(((audio.buffered.end(0) / audio.duration) * 100), 10);
+//    alert(loaded + '%');
+if (loaded == '100') {
+ $("#loadAudioOverlay").css("display","none");
+
+}
+
+  });
+
+				
+		
+					
+				}
+				
+				//declare necesary variables for audio
+					loadAudioFile(audioFile);
+				
+				
+				
+				
+				//play & hilight verse function
+				{
+					
+					$(".v").click(function() {				/* When verse is clicked do the following */
+                                
+                                
+                                
+                                realoffset = window.wordStartTime.length-($(".w").length)+1;
+                               // document.getElementById('offset').innerHTML = realoffset;
+
+                                offset = 0;
+                                offset = realoffset;
+
+						  		  $(".w").css("background","");			/* Clear all highlights */
+								  
+								  
+								  
+								  //Figure out and define when (in seconds) the verse starts and ends, and when the next word to be played starts and ends
+								  //important for starting and stopping audio and for highlighting
+								//  var verseIndex = parseInt($(this).attr("id").replace('verse', ''));
+								  wordsInVerse = $(this).siblings().length;
+								  firstWordInVerseIndex = parseInt($(this).next().attr("id").replace('word', ''))+offset;
+								  lastWordInVerseIndex = firstWordInVerseIndex + wordsInVerse;
+								  timeEnd = window.wordStartTime[lastWordInVerseIndex];
+								  timeEnd = parseFloat(timeEnd);
+								  timeNextWord = window.wordStartTime[firstWordInVerseIndex+1];
+								  nextVerseWordIndex = firstWordInVerseIndex + 1;
+								  timeStart = window.wordStartTime[firstWordInVerseIndex];
+						
+
+								  
+								  
+								  timeStart = parseFloat(timeStart);
+								//  timeStart = timeStart * 1000;
+								//  timeStart = parseInt(timeStart);
+								  
+								  $(this).next().css("background","#FFCC11"); //highlights word in a mustardy color
+								  //play audio at starttime of verse
+
+								document.getElementById('audio').play();
+								document.getElementById('audio').currentTime = timeStart;
+
+								  
+								  
+								  })
+					
+				}
+		
+						
+												
+				
+				//play & hilight word function
+				 		
+				
+/*				
+					$(".w").tap(function() { 
+					
+
+					
+					
+								  $(".w").css("background","");
+								  
+								  my_media.pause();
+								  clearInterval(mediaTimer);			
+								  $(this).css("background","#FFCC11");
+								  
+								  
+								  
+								  var wordIndex = parseInt($(this).attr("id").replace('word', ''));
+
+
+
+
+								  var nextWordIndex = wordIndex + 1;
+								  
+								  var timeEnd = window.wordStartTime[nextWordIndex];
+								  timeEnd = parseFloat(timeEnd);
+								  
+								  
+								 // alert('You clicked on word #' + wordIndex + ' it begins at ' + window.wordStartTime[wordIndex] + ' seconds and ends at: ' +  window.wordStartTime[nextWordIndex] +  ' seconds'  );
+								  var timeStart = window.wordStartTime[wordIndex];
+								  timeStart = parseFloat(timeStart);
+								  timeStart = timeStart * 1000;
+								  timeStart = parseInt(timeStart);
+								  
+								  
+								  
+								  my_media.play();
+								  my_media.seekTo(timeStart);
+								  
+								  
+								  
+								  mediaTimer = setInterval(function() {
+														   // get my_media position
+														   my_media.getCurrentPosition(
+																					   // success callback
+																					   function(position) {
+																					   
+																						if (position > -1) {
+																						document.getElementById('audio_position').innerHTML = position;
+																						//updates timer
+																						}
+																						
+																					   
+																					   
+																					   
+																					   if (position > timeEnd) {
+																					   my_media.stop();
+																					   $(".w").css("background","");
+																					   clearInterval(mediaTimer);
+																					   }
+																					   
+																					   },
+																					   // error callback
+																					   function(e) {
+																					   console.log("Error getting pos=" + e);
+																					   setAudioPosition("Error: " + e);
+																					   my_media.stop();
+																					   clearInterval(mediaTimer);
+																					   }
+																					   );
+														   }, 50);
+								  
+								  
+								  
+								  
+								  
+								  });
+				
+				
+
+*/
+				
+			
+			
+//various text manipulation functions
+	$("#reader").swipeleft( function () { $(".w").css("font-family","Stam Ashkenaz CLM"); 	});
+	$("#reader").swiperight( function () {	  $(".w").css("font-family","djklsfjkhsdf");  });		
+			
+			
+			
+//debug & expereimental functions
+		/*		$(".w").taphold( function () { 
+			     var wordIndex = parseInt($(this).attr("id").replace('word', ''));
+				  var nextWordIndex = wordIndex + 1;
+
+
+
+				alert('word id:'+wordIndex+'\nstart: ' + window.wordStartTime[wordIndex] + '\nend: '+window.wordStartTime[nextWordIndex]);
+				
+				  });
+        */
+			
+			
+			
+			
+}			
+
+//change text size			
+     function changeTextSize() {
+              var el = document.getElementById('textSizeSlider');
+			$(".w").css("font-size", el.value+"pt");
+			
+            }
+
+function changeTaameiHighlight() {
+			var el =  document.getElementById('taameiHighlightToggle');
+				if (taameiHighlightToggle.value == "no") {
+				$(".taamei").css("color", "black");
+				}
+				
+				if (taameiHighlightToggle.value == "yes") {
+				$(".taamei").css("color", "red");				
+				}
+}
+
+            
+            
+            function changeTranslationToggle() {
+                var el =  document.getElementById('translationToggle');
+				if (translationToggle.value == "no") {
+                    window.translationToggleOn = 0 ;
+				}
+				
+				if (translationToggle.value == "yes") {
+                    window.translationToggleOn = 1 ;
+				}
+                navigator.notification.alert("You may need to reselect the parshah to see the updated text.");
+
+            }
+
+            
+
+			function checkTime() {
+
+							
+																					   if (document.getElementById('audio').currentTime > timeNextWord) {
+																					   
+																					   $(".w").css("background","");
+																					   $("#word"+nextVerseWordIndex).css("background","#FFCC11");
+																					   timeNextWord = window.wordStartTime[nextVerseWordIndex+1];
+																					   nextVerseWordIndex = nextVerseWordIndex +1;
+																					   //sees if current word is finished being said, then hilights the next one
+																					   }
+																					   
+																					   
+																					   if (document.getElementById('audio').currentTime > timeEnd) {
+																					   document.getElementById('audio').pause();
+																					   $(".w").css("background","");
+																					   }
+																					   
+																					   
+																					   
+																					   }
+
+
+		var BrowserDetect = {
+	init: function () {
+		this.browser = this.searchString(this.dataBrowser) || "An unknown browser";
+		this.version = this.searchVersion(navigator.userAgent)
+			|| this.searchVersion(navigator.appVersion)
+			|| "an unknown version";
+		this.OS = this.searchString(this.dataOS) || "an unknown OS";
+	},
+	searchString: function (data) {
+		for (var i=0;i<data.length;i++)	{
+			var dataString = data[i].string;
+			var dataProp = data[i].prop;
+			this.versionSearchString = data[i].versionSearch || data[i].identity;
+			if (dataString) {
+				if (dataString.indexOf(data[i].subString) != -1)
+					return data[i].identity;
+			}
+			else if (dataProp)
+				return data[i].identity;
+		}
+	},
+	searchVersion: function (dataString) {
+		var index = dataString.indexOf(this.versionSearchString);
+		if (index == -1) return;
+		return parseFloat(dataString.substring(index+this.versionSearchString.length+1));
+	},
+	dataBrowser: [
+		{
+			string: navigator.userAgent,
+			subString: "Chrome",
+			identity: "Chrome"
+		},
+		{ 	string: navigator.userAgent,
+			subString: "OmniWeb",
+			versionSearch: "OmniWeb/",
+			identity: "OmniWeb"
+		},
+		{
+			string: navigator.vendor,
+			subString: "Apple",
+			identity: "Safari",
+			versionSearch: "Version"
+		},
+		{
+			prop: window.opera,
+			identity: "Opera",
+			versionSearch: "Version"
+		},
+		{
+			string: navigator.vendor,
+			subString: "iCab",
+			identity: "iCab"
+		},
+		{
+			string: navigator.vendor,
+			subString: "KDE",
+			identity: "Konqueror"
+		},
+		{
+			string: navigator.userAgent,
+			subString: "Firefox",
+			identity: "Firefox"
+		},
+		{
+			string: navigator.vendor,
+			subString: "Camino",
+			identity: "Camino"
+		},
+		{		// for newer Netscapes (6+)
+			string: navigator.userAgent,
+			subString: "Netscape",
+			identity: "Netscape"
+		},
+		{
+			string: navigator.userAgent,
+			subString: "MSIE",
+			identity: "Explorer",
+			versionSearch: "MSIE"
+		},
+		{
+			string: navigator.userAgent,
+			subString: "Gecko",
+			identity: "Mozilla",
+			versionSearch: "rv"
+		},
+		{ 		// for older Netscapes (4-)
+			string: navigator.userAgent,
+			subString: "Mozilla",
+			identity: "Netscape",
+			versionSearch: "Mozilla"
+		}
+	],
+	dataOS : [
+		{
+			string: navigator.platform,
+			subString: "Win",
+			identity: "Windows"
+		},
+		{
+			string: navigator.platform,
+			subString: "Mac",
+			identity: "Mac"
+		},
+		{
+			   string: navigator.userAgent,
+			   subString: "iPhone",
+			   identity: "iPhone/iPod"
+	    },
+		{
+			string: navigator.platform,
+			subString: "Linux",
+			identity: "Linux"
+		}
+	]
+
+};
+BrowserDetect.init();
+
+		
+		
+		
+		
+		
+			</script>
+	</head>
+	<body onload="onBodyLoad();">
+		
+		
+		
+		<!-- Start of first page -->
+		<div data-role="page" id="HomePage">
+			
+			<div data-role="header" data-theme="c">
+				<h1><img src="images/logo.png" alt="PocketTorah" height="25"></h1>
+				<a href="#settings" data-icon="gear" class="ui-btn-right" data-iconpos="notext" data-transition="flip">Options</a>
+			</div><!-- /header -->
+			
+			
+			<div id="browserOverlay" style="background-color: #fff; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; z-index: 999; display: none; text-align=center">
+			     <h1 style="text-align: center"> This site requires Safari  <br /><img src="http://upload.wikimedia.org/wikipedia/en/6/61/Apple_Safari.png"></h1>    
+					<p style="text-align: center">Our coding monkeys are hard at work trying to make the site work on other web browsers as well, <br />but for now <a href="http://www.apple.com/safari/download/" target="_blank">download Safari</a> for mac or windows and then get chanting.</p>
+		   </div> 	
+
+
+
+			<div data-role="content">	
+				<ul data-role="listview" data-inset="true" data-theme="c">
+					<li role="heading" data-role="list-divider">Choose a Parshah</li>
+					<div id="parshahList" class="heb">
+					</div>
+					<li></li>
+					
+				</ul>
+				
+			</div><!-- /content -->
+			
+		</div><!-- /page -->
+		
+		
+		
+		
+		
+		<!-- Start of kriyah select page -->
+		<div data-role="page" id="kriyahSelect" data-add-back-btn="true" >
+			
+			<div data-role="header" data-theme="c">
+				<h1><img src="images/logo.png" alt="PocketTorah" height="25"></h1>
+				<a href="#settings" data-icon="gear" class="ui-btn-right" data-iconpos="notext" data-transition="flip">Options</a>
+			</div><!-- /header -->
+			
+			<div data-role="content">	
+				<ul data-role="listview" data-inset="true" data-theme="c">
+					<li role="heading" data-role="list-divider" id="kriyahSelectHeader">Readings for ParshahName</li>
+					
+					<li id="aliyah-1-link"><a href='#reader'>Aliyah 1</a></li>
+					<li id="aliyah-2-link"><a href='#reader'>Aliyah 2</a></li>
+					<li id="aliyah-3-link"><a href='#reader'>Aliyah 3</a></li>
+					<li id="aliyah-4-link"><a href='#reader'>Aliyah 4</a></li>
+					<li id="aliyah-5-link"><a href='#reader'>Aliyah 5</a></li>
+					<li id="aliyah-6-link"><a href='#reader'>Aliyah 6</a></li>
+					<li id="aliyah-7-link"><a href='#reader'>Aliyah 7</a></li>
+					<li id="aliyah-M-link"><a href='#reader'>Maftir Aliyah</a></li>
+					<li id="aliyah-haftrah-link"><a href='#reader'>Haftarah</a></li>
+		<!--			<li id="aliyah-commentary-link"><a href='#commentary'>Commentary</a></li>  -->
+					
+					 
+				</ul>
+				
+				
+			</div><!-- /content -->
+			
+		</div><!-- /page -->
+		
+		
+		
+		<!-- Start of trope page -->
+		<div data-role="page" id="reader" data-add-back-btn="true" >
+			
+			<div data-role="header" data-theme="c">
+				<h1><img src="images/logo.png" alt="PocketTorah" height="25"><div id="audio_position"></div><span id="offset"></span></h1>
+				<a href="#settings" data-icon="gear" class="ui-btn-right" data-iconpos="notext" data-transition="flip">Options</a>
+			</div><!-- /header -->
+   <div id="loadAudioOverlay" style="background-color: #fff; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; z-index: 999; display: inline; text-align=center">
+     <h1 style="text-align: center"> Loading Audio  <br /><img src="images/loader.gif" height="100"></h1>    
+   </div> 	
+			<div data-role="content" id="hebtextcontainer">	
+
+				<div>
+					<audio id="audio" src="" preload ontimeupdate="checkTime();">
+
+				</div>
+
+				<div id="hebtext" class="heb">
+					
+					
+				</div>
+				
+				
+				
+				
+			</div>
+			
+            <div data-role="footer" >
+				<h4><a href="" data-rel="back" data-icon="arrow-l" data-theme="c">Back</a></h4>
+            </div>    
+            
+			</div><!-- /header -->
+
+            
+            
+			
+		</div><!-- /page -->
+		
+        
+        
+        
+        
+        
+        <div data-role="page" id="commentary" data-add-back-btn="true" >
+			
+			<div data-role="header" data-theme="c">
+				<h1><img src="images/logo.png" alt="PocketTorah" height="25"><div id="audio_position"></div><span id="offset"></span></h1>
+				<a href="#settings" data-icon="gear" class="ui-btn-right" data-iconpos="notext" data-transition="flip">Options</a>
+			</div><!-- /header -->
+			
+			<div data-role="content">	
+				<div id="comtext">
+					<ul>
+                        <li>placeholder</li>
+                    </ul>
+					
+				</div>
+				
+				
+				
+				
+			</div>
+			
+            <div data-role="footer" >
+				<h4><a href="" data-rel="back" data-icon="arrow-l" data-theme="c">Back</a></h4>
+            </div>    
+            
+        </div><!-- /header -->
+        
+        
+        
+        
+		</div><!-- /page -->
+		
+
+		
+		
+		
+		<!-- Start of settings page -->
+		<div data-role="page" id="settings" data-add-back-btn="true">
+			
+			<div data-role="header" data-theme="c">
+				<h1><img src="images/logo.png" alt="PocketTorah" height="25"></h1>
+			</div><!-- /header -->
+			
+			<div data-role="content">	
+				<label for="textSizeSlider">Font Size:</label>
+				<input type="range" name="slider" id="textSizeSlider" value="24" min="10" max="50" onchange="changeTextSize()" />
+				
+				<p>Sample:<br /><div class="w">אֶתְנַחְתָּא</div></p>
+			 	 
+			 	 
+		<!--		<div data-role="fieldcontain">
+					<label for="taameiHighlightToggle">Highlight Trope Symbols?</label>
+					<select name="slider" id="taameiHighlightToggle" data-role="slider" onchange="changeTaameiHighlight()" >
+						<option value="no">No</option>
+						<option value="yes" selected="selected">Yes</option>
+					</select> 
+				</div> -->
+				
+				
+				<div data-role="fieldcontain">
+					<label for="translationToggle">Show English Translation?</label>
+					<select name="slider" id="translationToggle" data-role="slider" onchange="changeTranslationToggle()" >
+						<option value="no" selected="selected">No</option>
+						<option value="yes">Yes</option>
+					</select> 
+				</div>
+				
+				
+                
+
+                
+				
+				<div data-role="fieldcontain" style="display: none">
+					<label for="kriyahToggle" class="select">Kriyah Selection:</label>
+					<select name="select-choice-1" id="kriyahToggle" onchange="changeKriyahToggle();">
+						<option value="full" selected="selected">Full Kriyah</option>
+						<option value="tri1">Triennial Year 1</option>
+						<option value="tri2">Triennial Year 2</option>
+						<option value="tri3">Triennial Year 3</option>
+					</select>
+				</div>
+				
+				
+				
+                <a href="" data-rel="back" data-role="button">Close</a> 
+
+				
+				
+				
+			</div>
+			
+			
+			
+			
+		</div>
+		
+		
+		</div><!-- /page -->
+		
+		
+		
+	</body>
+</html>

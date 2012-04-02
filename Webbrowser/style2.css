@@ -1,0 +1,48 @@
+
+@font-face {
+	font-family: 'Ezra SIL SR';
+	src: url('ezrasilsr-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('ezrasilsr-webfont.woff') format('woff'), 
+	     url('ezrasilsr-webfont.ttf')  format('truetype'),
+	     url('ezrasilsr-webfont.svg#EzraSILSR') format('svg');
+	}
+
+
+
+
+.stam { 
+	font-family: 'Stam Ashkenaz CLM';
+ }
+
+.w  {
+	font-family: 'Ezra SIL SR';	
+	font-size: 24pt; 
+	font-weight: normal;
+	text-align:right;
+	direction:rtl;
+      
+      
+}
+
+.v {
+	font-size: 24pt; 
+	font-weight: normal;
+	direction:rtl;
+
+}
+
+
+.heb {
+	font-family: 'Ezra SIL SR';	
+	font-size: 24pt; 
+	font-weight: normal;
+	text-align:right;
+	direction:rtl;
+}
+
+.taamei {
+	color: red;
+
+	}
+	
+.highlight { color: red; }
