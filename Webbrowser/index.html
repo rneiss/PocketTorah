@@ -40,7 +40,7 @@
 			
 			
 			function loadXML(){
-								if (BrowserDetect.browser != "Safari"){
+								if (BrowserDetect.browser != "Safari" && BrowserDetect.browser != "Chrome"){
 								
 								 $("#browserOverlay").css("display","inline");
 
@@ -169,8 +169,8 @@
 			else { var fileName = display+1; }
 			jQuery.get('content/torah/labels/'+engname+'-'+fileName+'.txt', function(data) {window.wordStartTime = data.split(',');});
 		//	var audioFile = 'content/torah/audio/'+engname+'-'+fileName+'.mp3'
-			var audioFile = 'http://dl.dropbox.com/u/29508688/'+engname+'-'+fileName+'.mp3'
 		
+			var audioFile = 'http://ia601200.us.archive.org/13/items/PockettorahAudioFiles/'+(engname.replace(/\s/g, ""))+'-'+fileName+'.mp3';
 		
 		
 				if (window.XMLHttpRequest)
@@ -188,7 +188,8 @@
 
             if (display != 'H') {
 			//check which reading option the user selected, and return the corresponding starting and ending verse of the aliyah as a string	
-				var el =  document.getElementById('kriyahToggle'); 
+				var kriyahToggle =  document.getElementById('kriyahToggle'); 
+				
 				
 				if (kriyahToggle.value == "full") {
 					var aliyahBegin=z.getElementsByTagName("fullkriyah")[0].getElementsByTagName("aliyah")[display].attributes.getNamedItem('begin').value;
@@ -437,7 +438,7 @@ if (loaded == '100') {
 				//play & hilight verse function
 				{
 					
-					$(".v").click(function() {				/* When verse is clicked do the following */
+					$(".w").click(function() {				/* When verse is clicked do the following */
                                 
                                 
                                 
@@ -455,14 +456,24 @@ if (loaded == '100') {
 								  //important for starting and stopping audio and for highlighting
 								//  var verseIndex = parseInt($(this).attr("id").replace('verse', ''));
 								  wordsInVerse = $(this).siblings().length;
-								  firstWordInVerseIndex = parseInt($(this).next().attr("id").replace('word', ''))+offset;
-								  lastWordInVerseIndex = firstWordInVerseIndex + wordsInVerse;
+								  firstWordInVerseIndex = parseInt($(this).attr("id").replace('word', ''))+offset;
+								//  alert(($(this).siblings()[1].attr("id").replace('word', '')));
+								  
+										if (typeof $(this).prev(".w")[0] === 'undefined') {RealFirstWordInVerseIndex = (parseInt($(this).attr("id").replace('word', ''))+offset);}
+										else {			RealFirstWordInVerseIndex = (parseInt($(this).siblings(".w")[0].id.replace('word', ''))+offset);}
+								  	
+									
+
+															  
+ 								  lastWordInVerseIndex = RealFirstWordInVerseIndex + wordsInVerse;
 								  timeEnd = window.wordStartTime[lastWordInVerseIndex];
 								  timeEnd = parseFloat(timeEnd);
 								  timeNextWord = window.wordStartTime[firstWordInVerseIndex+1];
 								  nextVerseWordIndex = firstWordInVerseIndex + 1;
 								  timeStart = window.wordStartTime[firstWordInVerseIndex];
-						
+										
+										
+										
 
 								  
 								  
@@ -470,7 +481,7 @@ if (loaded == '100') {
 								//  timeStart = timeStart * 1000;
 								//  timeStart = parseInt(timeStart);
 								  
-								  $(this).next().css("background","#FFCC11"); //highlights word in a mustardy color
+								  $(this).css("background","#FFCC11"); //highlights word in a mustardy color
 								  //play audio at starttime of verse
 
 								document.getElementById('audio').play();
@@ -570,8 +581,8 @@ if (loaded == '100') {
 			
 			
 //various text manipulation functions
-	$("#reader").swipeleft( function () { $(".w").css("font-family","Stam Ashkenaz CLM"); 	});
-	$("#reader").swiperight( function () {	  $(".w").css("font-family","djklsfjkhsdf");  });		
+	$("#reader").swipeleft( function () { $(".w").css("font-family","StamAshkenazCLMMedium"); 	});
+	$("#reader").swiperight( function () {	  $(".w").css("font-family","Ezra SIL SR");  });		
 			
 			
 			
@@ -588,7 +599,11 @@ if (loaded == '100') {
         */
 			
 			
-			
+$("h1").click( function () {    document.getElementById('audio').pause();
+								$(".w").css("background","");
+
+} );
+ 			
 			
 }			
 
@@ -621,7 +636,7 @@ function changeTaameiHighlight() {
 				if (translationToggle.value == "yes") {
                     window.translationToggleOn = 1 ;
 				}
-                navigator.notification.alert("You may need to reselect the parshah to see the updated text.");
+                alert("You may need to reselect the parshah to see the updated text.");
 
             }
 
@@ -774,7 +789,22 @@ BrowserDetect.init();
 		
 		
 			</script>
-	</head>
+	
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9817891-5']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+    
+    </head>
 	<body onload="onBodyLoad();">
 		
 		
@@ -783,14 +813,15 @@ BrowserDetect.init();
 		<div data-role="page" id="HomePage">
 			
 			<div data-role="header" data-theme="c">
-				<h1><img src="images/logo.png" alt="PocketTorah" height="25"></h1>
+				<a href="http://www.pockettorah.com" target="_blank">Home</a>	
+                <h1><img src="images/logo.png" alt="PocketTorah" height="25"></h1>
 				<a href="#settings" data-icon="gear" class="ui-btn-right" data-iconpos="notext" data-transition="flip">Options</a>
 			</div><!-- /header -->
 			
 			
 			<div id="browserOverlay" style="background-color: #fff; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; z-index: 999; display: none; text-align=center">
-			     <h1 style="text-align: center"> This site requires Safari  <br /><img src="http://upload.wikimedia.org/wikipedia/en/6/61/Apple_Safari.png"></h1>    
-					<p style="text-align: center">Our coding monkeys are hard at work trying to make the site work on other web browsers as well, <br />but for now <a href="http://www.apple.com/safari/download/" target="_blank">download Safari</a> for mac or windows and then get chanting.</p>
+			     <h1 style="text-align: center"> This site requires Safari or Chrome  <br /><img src="http://upload.wikimedia.org/wikipedia/en/6/61/Apple_Safari.png"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/f/fa/Google_Chrome_2011_computer_icon.svg/256px-Google_Chrome_2011_computer_icon.svg.png"></h1>    
+					<p style="text-align: center">Our coding monkeys are hard at work trying to make the site work on other web browsers as well, <br />but for now <a href="http://www.apple.com/safari/download/" target="_blank">download Safari</a> or <a href="https://www.google.com/chrome" target="_blank">Chrome</a> for mac or windows and then get chanting.</p>
 		   </div> 	
 
 

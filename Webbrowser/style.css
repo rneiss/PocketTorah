@@ -16,10 +16,17 @@ z-index: 100000000000;
 
 
 @font-face {
-	font-family: 'Stam Ashkenaz CLM';
-	src: url('fonts/StamAshkenazCLM.ttf')  format('truetype'),
-	     
-	}
+    font-family: 'StamAshkenazCLMMedium';
+    src: url('fonts/stamashkenazclm-webfont.eot');
+    src: url('fonts/stamashkenazclm-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/stamashkenazclm-webfont.woff') format('woff'),
+         url('fonts/stamashkenazclm-webfont.ttf') format('truetype'),
+         url('fonts/stamashkenazclm-webfont.svg#StamAshkenazCLMMedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 
 
 
