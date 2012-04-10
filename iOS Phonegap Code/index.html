@@ -464,7 +464,7 @@
 				//play & hilight verse function
 				{
 					
-					$(".v").tap(function() {				/* When verse is clicked do the following */
+					$(".w").tap(function() {				/* When verse is clicked do the following */
                                 
                                 
                                 
@@ -484,8 +484,13 @@
 								  //important for starting and stopping audio and for highlighting
 								//  var verseIndex = parseInt($(this).attr("id").replace('verse', ''));
 								  var wordsInVerse = $(this).siblings().length;
-								  var firstWordInVerseIndex = parseInt($(this).next().attr("id").replace('word', ''))+offset;
-								  var lastWordInVerseIndex = firstWordInVerseIndex + wordsInVerse;
+                                  var firstWordInVerseIndex = parseInt($(this).attr("id").replace('word', ''))+offset;
+
+                                if (typeof $(this).prev(".w")[0] === 'undefined') {RealFirstWordInVerseIndex = (parseInt($(this).attr("id").replace('word', ''))+offset);}
+                                else {			RealFirstWordInVerseIndex = (parseInt($(this).siblings(".w")[0].id.replace('word', ''))+offset);}
+
+                                
+								  var lastWordInVerseIndex = RealFirstWordInVerseIndex + wordsInVerse;
 								  var timeEnd = window.wordStartTime[lastWordInVerseIndex];
 								  timeEnd = parseFloat(timeEnd);
 								  var timeNextWord = window.wordStartTime[firstWordInVerseIndex+1];
@@ -499,7 +504,7 @@
 								  timeStart = timeStart * 1000;
 								  timeStart = parseInt(timeStart);
 								  
-								  $(this).next().css("background","#FFCC11"); //highlights word in a mustardy color
+								  $(this).css("background","#FFCC11"); //highlights word in a mustardy color
 								  //play audio at starttime of verse
 								  my_media.play();
 								  my_media.seekTo(timeStart);
