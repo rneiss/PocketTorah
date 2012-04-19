@@ -1,0 +1,39 @@
+#fixed_audio_box {
+position: fixed; 
+bottom: 0; 
+left: 0; 
+z-index: 100000000000;
+}
+
+
+
+.w  {
+	font-family: 'Ezra SIL SR';	
+
+
+	font-size: 24pt; 
+	font-weight: normal;
+    word-spacing: 3px;
+	
+}
+
+.v {
+	font-size: 12pt; 
+	font-weight: normal;
+}
+
+
+.heb {
+	text-align:right;
+	direction:rtl;
+}
+
+
+.stam {
+font-family: 'Stam Ashkenaz CLM';
+}
+
+.taamei {
+	color: red;
+	font-weight: normal;
+	}
