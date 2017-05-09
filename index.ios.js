@@ -82,18 +82,12 @@ class TorahReadingsScreen extends React.Component {
     title: 'Torah Readings',
   };
   render() {
+    //convert parshah json to array
     var aliyahData = require('./data/aliyah.json');
-    parshahArray = [];
-    for(var x in aliyahData.parshiot.parsha){
-      parshahArray.push(aliyahData.parshiot.parsha[x]);
-    }
+    var parshahArray = aliyahData.parshiot.parsha.map(x => x);
 
-
-    var content = parshahArray.map(function(obj) {
-        var parshahName = obj._id;
-        return (<CustomButton doOnPress={() => navigate('AliyahSelectScreen', { parshah: parshahName })} buttonTitle={parshahName} />);
-    });
-
+    //create button for each parsha
+    var content = parshahArray.map((obj) => (<CustomButton doOnPress={() => navigate('AliyahSelectScreen', { parshah: obj._id })} buttonTitle={obj._id} />) );
 
     const { params } = this.props.navigation.state;
     const { navigate } = this.props.navigation;
