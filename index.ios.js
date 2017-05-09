@@ -54,11 +54,9 @@ class HomeScreen extends React.Component {
     const { navigate } = this.props.navigation;
     return (
       <ScrollView>
-
         <CustomButton doOnPress={() => navigate('TorahReadingsScreen')} buttonTitle="List of Torah Readings" />
         <CustomButton doOnPress={loadTorahReadingScreen} buttonTitle="This Week's Torah Readings" />
         <CustomButton doOnPress={() => navigate('About')} buttonTitle="About this App" />
-
       </ScrollView>
     );
   }
@@ -85,11 +83,25 @@ class TorahReadingsScreen extends React.Component {
   };
   render() {
     var aliyahData = require('./data/aliyah.json');
+    parshahArray = [];
+    for(var x in aliyahData.parshiot.parsha){
+      parshahArray.push(aliyahData.parshiot.parsha[x]);
+    }
+
+
+    var content = parshahArray.map(function(obj) {
+        var parshahName = obj._id;
+        return (<CustomButton doOnPress={() => navigate('AliyahSelectScreen', { parshah: parshahName })} buttonTitle={parshahName} />);
+    });
+
+
     const { params } = this.props.navigation.state;
     const { navigate } = this.props.navigation;
     return (
       <View>
-        <CustomButton doOnPress={() => navigate('AliyahSelectScreen', { parshah: 'Bereshit' })} buttonTitle="Bereshit" />
+        <ScrollView>
+          {content}
+        </ScrollView>
       </View>
     );
   }
