@@ -34,6 +34,18 @@ const loadAboutPage = () => {
 };
 
 
+class CustomButton extends React.Component {
+  render() {
+    return (
+      <TouchableOpacity onPress={this.props.doOnPress}>
+        <Text style={styles.button}>
+          {this.props.buttonTitle}
+        </Text>
+      </TouchableOpacity>
+    );
+  }
+}
+
 class HomeScreen extends React.Component {
   static navigationOptions = {
     title: 'Home',
@@ -43,21 +55,10 @@ class HomeScreen extends React.Component {
     return (
       <ScrollView>
 
-        <TouchableOpacity onPress={() => navigate('TorahReadingsScreen')}>
-          <Text style={styles.button}>
-            List of Torah Readings
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={loadTorahReadingScreen}>
-          <Text style={styles.button}>
-            This Week's Torah Readings
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigate('About')}>
-          <Text style={styles.button}>
-            About this App
-          </Text>
-        </TouchableOpacity>
+        <CustomButton doOnPress={() => navigate('TorahReadingsScreen')} buttonTitle="List of Torah Readings" />
+        <CustomButton doOnPress={loadTorahReadingScreen} buttonTitle="This Week's Torah Readings" />
+        <CustomButton doOnPress={() => navigate('About')} buttonTitle="About this App" />
+
       </ScrollView>
     );
   }
@@ -84,34 +85,26 @@ class TorahReadingsScreen extends React.Component {
   };
   render() {
     var aliyahData = require('./data/aliyah.json');
-
+    const { params } = this.props.navigation.state;
     const { navigate } = this.props.navigation;
     return (
       <View>
-        <TouchableOpacity onPress={() => navigate('AliyahSelectScreen')}>
-          <Text style={styles.button}>
-            Genesis
-            {aliyahData.parshiot.parsha[0]._id}
-          </Text>
-        </TouchableOpacity>
+        <CustomButton doOnPress={() => navigate('AliyahSelectScreen', { parshah: 'Bereshit' })} buttonTitle="Bereshit" />
       </View>
     );
   }
 }
 
 class AliyahSelectScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Aliyot',
-  };
+  static navigationOptions = ({ navigation }) => ({
+    title: `${navigation.state.params.parshah}`,
+  });
   render() {
+    const { params } = this.props.navigation.state;
     const { navigate } = this.props.navigation;
     return (
       <View>
-        <TouchableOpacity onPress={() => navigate('PlayViewScreen')}>
-          <Text style={styles.button}>
-            Aliyah 1
-          </Text>
-        </TouchableOpacity>
+        <CustomButton doOnPress={() => navigate('PlayViewScreen')} buttonTitle="Aliyah 1" />
       </View>
     );
   }
@@ -122,6 +115,7 @@ class PlayViewScreen extends React.Component {
     title: 'Parshah Name',
   };
   render() {
+    const { params } = this.props.navigation.state;
     return (
       <View>
       </View>
@@ -132,6 +126,7 @@ class PlayViewScreen extends React.Component {
 
 const PocketTorah = StackNavigator({
   Home: { screen: HomeScreen },
+  About: { screen: AboutScreen },
   TorahReadingsScreen: { screen: TorahReadingsScreen },
   AliyahSelectScreen: { screen: AliyahSelectScreen },
   PlayViewScreen: { screen: PlayViewScreen },
