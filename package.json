@@ -10,6 +10,7 @@
     "json-loader": "^0.5.4",
     "react": "16.0.0-alpha.6",
     "react-native": "0.44.0",
+    "react-native-fs": "^2.3.2",
     "react-native-sound": "^0.10.1",
     "react-navigation": "^1.0.0-beta.9"
   },
@@ -23,7 +24,8 @@
     "preset": "react-native"
   },
   "rnpm": {
-     "assets": ["./fonts"]
+    "assets": [
+      "./fonts"
+    ]
   }
-
 }

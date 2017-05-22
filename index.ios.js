@@ -15,6 +15,7 @@ import {
   Alert
 
 } from 'react-native';
+var RNFS = require('react-native-fs');
 
 import {
   StackNavigator,
@@ -166,6 +167,7 @@ class PlayViewScreen extends React.Component {
     super(props);
     this.state = {
       audio: "",
+      labels: "",
     };
   }
 
@@ -179,6 +181,20 @@ class PlayViewScreen extends React.Component {
       }
       this.setState({audio: aliyahAudio});
     });
+
+
+    RNFS.readFile(RNFS.MainBundlePath+'/labels/'+params.title+'-'+ params.aliyahNum+'.txt') // On Android, use "RNFS.DocumentDirectoryPath" (MainBundlePath is not defined)
+      .then((contents) => {
+        // log the file contents
+        console.log(contents);
+        this.setState({
+          labels: contents
+        });
+
+      })
+      .catch((err) => {
+        console.log(err.message, err.code);
+      });
   }
 
   componentWillUnmount() {
@@ -186,7 +202,7 @@ class PlayViewScreen extends React.Component {
   }
   render() {
 
-    if (this.state.audio == "") {
+    if (this.state.audio == "" || this.state.labels == "") {
     return (
       <View>
         <Text>Loading....</Text>
@@ -196,6 +212,7 @@ class PlayViewScreen extends React.Component {
     }
 
     else {
+      console.log(this.state.labels);
       const {params} = this.props.navigation.state;
       var chapterStart = params.aliyotStart.split(':')[0];
       var verseStart = params.aliyotStart.split(':')[1];
