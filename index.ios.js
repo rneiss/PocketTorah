@@ -12,10 +12,12 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
-  Alert
+  Alert,
+  ActivityIndicator
 
 } from 'react-native';
 var RNFS = require('react-native-fs');
+timeChecker = "";
 
 import {
   StackNavigator,
@@ -163,13 +165,52 @@ class PlayViewScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     title: `${navigation.state.params.title}`,
   });
+
+
+
   constructor(props) {
     super(props);
     this.state = {
       audio: "",
       labels: "",
+      curWordIndex: 0,
+      activeWordIndex:0,
+      audioPlaying: false,
     };
   }
+
+
+
+  checkTime() {
+    clearInterval(timeChecker);
+
+    var wordIndex = this.state.activeWordIndex;
+    if (this.state.audio == "" || this.state.labels == "") { return }
+
+    this.state.audio.getCurrentTime((curTime) =>  {
+      var changeTime = parseFloat(this.state.labels[wordIndex+1]);
+      if (curTime > changeTime) {
+        this.setState({
+          activeWordIndex: wordIndex+1
+        });
+      }
+    });
+
+    timeChecker = setTimeout(() => {this.checkTime()});
+
+  }
+
+  toggleAudio(action) {
+    if (action == 'play') {
+      this.state.audio.play();
+      this.setState({audioPlaying: true});
+    }
+    else {
+      this.state.audio.pause();
+      this.setState({audioPlaying: false});
+    }
+  }
+
 
   componentDidMount() {
     const { params } = this.props.navigation.state;
@@ -186,9 +227,8 @@ class PlayViewScreen extends React.Component {
     RNFS.readFile(RNFS.MainBundlePath+'/labels/'+params.title+'-'+ params.aliyahNum+'.txt') // On Android, use "RNFS.DocumentDirectoryPath" (MainBundlePath is not defined)
       .then((contents) => {
         // log the file contents
-        console.log(contents);
         this.setState({
-          labels: contents
+          labels: contents.split(','),
         });
 
       })
@@ -205,6 +245,9 @@ class PlayViewScreen extends React.Component {
     if (this.state.audio == "" || this.state.labels == "") {
     return (
       <View>
+        <ActivityIndicator
+          size="large"
+        />
         <Text>Loading....</Text>
       </View>
     );
@@ -212,17 +255,32 @@ class PlayViewScreen extends React.Component {
     }
 
     else {
-      console.log(this.state.labels);
       const {params} = this.props.navigation.state;
       var chapterStart = params.aliyotStart.split(':')[0];
       var verseStart = params.aliyotStart.split(':')[1];
-      var chapterEnd = params.aliyotEnd.split(':')[0];
-      var verseEnd = params.aliyotEnd.split(':')[1];
       var chapterStartIndex = chapterStart - 1;
       var verseStartIndex = verseStart - 1;
-      var curWordIndex = 0;
 
-      var bookText = (function(book) {
+      this.checkTime(1000);
+
+      return (
+        <View style={{flex: 1}}>
+          <ScrollView>
+            <TextFile activeWordIndex={this.state.activeWordIndex} originatingBook={params.originatingBook} sectionLength={params.length} chapterStartIndex={chapterStartIndex} verseStartIndex={verseStartIndex} />
+          </ScrollView>
+          <View>
+            {this.state.audioPlaying ? <CustomButton doOnPress={() => this.toggleAudio('pause')} buttonTitle="Pause" /> : <CustomButton doOnPress={() => this.toggleAudio('play')} buttonTitle="Play" /> }
+
+          </View>
+        </View>
+      );
+    }
+  }
+}
+
+class TextFile extends React.Component {
+render() {
+  var bookText = (function(book) {
         switch (book) {
           case 'Amos':
             return Amos.Tanach.tanach.book;
@@ -278,67 +336,63 @@ class PlayViewScreen extends React.Component {
             return Zechariah.Tanach.tanach.book;
         }
       });
+  var selectedBook = bookText(this.props.originatingBook);
+  var selectedTrans = bookText(this.props.originatingBook + "Trans");
+  return (
+    <View style={styles.text}><Verses activeWordIndex={this.props.activeWordIndex} book={selectedBook} transBook={selectedTrans} chapterStart={this.props.chapterStartIndex} verseStart={this.props.verseStartIndex} length={this.props.sectionLength} /></View>
+  )
+}
+}
 
-      if (this.state.audio) {
-        this.state.audio.play();
-      }
 
+class Verses extends React.Component {
 
-      var verseWords = (function(verse) {
-        var words = [];
-        for (i = 0; i < verse.w.length; i++) {
-          words.push(<TouchableOpacity key={i}><Text style={styles.word}>
-            {verse.w[i].replace(/\//g, '')}
-          </Text></TouchableOpacity>);
-          curWordIndex++;
-        }
-        return words;
-      });
-
-      var verses = (function(book, transBook, chapterStart, verseStart, length) {
+  render() {
         var verseText = [];
-        var curChapter = chapterStart;
-        var curVerse = verseStart;
-        for (q = 0; q < length; q++) {
+        var curChapter = this.props.chapterStart;
+        var curVerse = this.props.verseStart;
+        var book = this.props.book;
+        var transBook = this.props.transBook;
+        var lastWordIndex = 0;
+        for (q = 0; q < this.props.length; q++) {
           if (!book.c[curChapter].v[curVerse]) {
             curChapter = curChapter + 1;
             curVerse = 0;
           }
-          verseText.push(<View style={styles.text}>
-            <Text>{curChapter + 1}:{curVerse + 1}</Text>{verseWords(book.c[curChapter].v[curVerse])}
-            <Text>{transBook.text[curChapter][curVerse]}</Text>
-          </View>);
+          verseText.push(
+            <VerseWords activeWordIndex={this.props.activeWordIndex} curWordIndex={lastWordIndex} verse={book.c[curChapter].v[curVerse]} />
+          );
+          lastWordIndex = lastWordIndex + book.c[curChapter].v[curVerse].w.length;
           curVerse = curVerse + 1;
         }
 
-        return verseText;
+  return (<View style={styles.text}>{verseText}</View>);
 
-      });
-
-
-      var textFile = (function(book, sectionLength) {
-
-        var selectedBook = bookText(book);
-        var selectedTrans = bookText(book + "Trans");
-//      var firstVerse = selectedBook.c[chapterStartIndex].v[verseStartIndex];
-
-        var textToReturn = verses(selectedBook, selectedTrans, chapterStartIndex, verseStartIndex, sectionLength);
-
-        return textToReturn;
-
-      });
-
-
-      return (
-        <View>
-          <ScrollView>
-            <View style={styles.text}>{textFile(params.originatingBook, params.length)}</View>
-          </ScrollView>
-        </View>
-      );
-    }
-  }
 }
+}
+
+
+class VerseWords extends React.Component {
+render() {
+  var words = [];
+  var verse = this.props.verse;
+  for (i = 0; i < verse.w.length; i++) {
+
+
+    words.push(<TouchableOpacity key={i}><Text style={this.props.curWordIndex+i == this.props.activeWordIndex? [styles.word, styles.active] : styles.word}>
+      {verse.w[i].replace(/\//g, '')}
+    </Text></TouchableOpacity>);
+  }
+
+  return (<View style={styles.text}>{words}</View>);
+}
+}
+
+
+
+
+
+
 
 
 const PocketTorah = StackNavigator({
@@ -390,7 +444,11 @@ const styles = StyleSheet.create({
     padding: 4,
     fontSize: 36,
     fontFamily: "Taamey Frank Taamim Fix",
-  }
+  },
+  active: {
+    backgroundColor: '#ffff9d',
+  },
+
 
 });
 
