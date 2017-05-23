@@ -347,7 +347,26 @@ render() {
 
 class Verses extends React.Component {
 
+  getVerseWords(verse, activeWordIndex, curWordIndex, curChapterIndex, curVerseIndex,) {
+    var words = [];
+    for (i = 0; i < verse.w.length; i++) {
+
+
+      words.push(
+       <View style={styles.text}>
+        {i == 0 ? <Text>{curChapterIndex+1}:{curVerseIndex+1}</Text> : null}
+        <TouchableOpacity key={i}>
+          <Text style={curWordIndex+i == activeWordIndex? [styles.word, styles.active] : styles.word}>
+            {verse.w[i].replace(/\//g, '')}
+          </Text>
+        </TouchableOpacity>
+       </View>);
+    }
+    return words;
+  }
+
   render() {
+
         var verseText = [];
         var curChapter = this.props.chapterStart;
         var curVerse = this.props.verseStart;
@@ -360,7 +379,8 @@ class Verses extends React.Component {
             curVerse = 0;
           }
           verseText.push(
-            <VerseWords activeWordIndex={this.props.activeWordIndex} curWordIndex={lastWordIndex} verse={book.c[curChapter].v[curVerse]} />
+            this.getVerseWords(book.c[curChapter].v[curVerse],this.props.activeWordIndex,lastWordIndex,curChapter,curVerse)
+//            <VerseWords activeWordIndex={this.props.activeWordIndex} curWordIndex={lastWordIndex} verse={book.c[curChapter].v[curVerse]} />
           );
           lastWordIndex = lastWordIndex + book.c[curChapter].v[curVerse].w.length;
           curVerse = curVerse + 1;
@@ -368,23 +388,6 @@ class Verses extends React.Component {
 
   return (<View style={styles.text}>{verseText}</View>);
 
-}
-}
-
-
-class VerseWords extends React.Component {
-render() {
-  var words = [];
-  var verse = this.props.verse;
-  for (i = 0; i < verse.w.length; i++) {
-
-
-    words.push(<TouchableOpacity key={i}><Text style={this.props.curWordIndex+i == this.props.activeWordIndex? [styles.word, styles.active] : styles.word}>
-      {verse.w[i].replace(/\//g, '')}
-    </Text></TouchableOpacity>);
-  }
-
-  return (<View style={styles.text}>{words}</View>);
 }
 }
 
