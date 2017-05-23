@@ -176,6 +176,7 @@ class PlayViewScreen extends React.Component {
       curWordIndex: 0,
       activeWordIndex:0,
       audioPlaying: false,
+      translationOn: true,
     };
   }
 
@@ -208,6 +209,15 @@ class PlayViewScreen extends React.Component {
     else {
       this.state.audio.pause();
       this.setState({audioPlaying: false});
+    }
+  }
+
+  toggleTranslation(action) {
+    if (action == 'on') {
+      this.setState({translationOn: true});
+    }
+    else {
+      this.setState({translationOn: false});
     }
   }
 
@@ -266,10 +276,11 @@ class PlayViewScreen extends React.Component {
       return (
         <View style={{flex: 1}}>
           <ScrollView>
-            <TextFile activeWordIndex={this.state.activeWordIndex} originatingBook={params.originatingBook} sectionLength={params.length} chapterStartIndex={chapterStartIndex} verseStartIndex={verseStartIndex} />
+            <TextFile translationFlag={this.state.translationOn} activeWordIndex={this.state.activeWordIndex} originatingBook={params.originatingBook} sectionLength={params.length} chapterStartIndex={chapterStartIndex} verseStartIndex={verseStartIndex} />
           </ScrollView>
           <View>
             {this.state.audioPlaying ? <CustomButton doOnPress={() => this.toggleAudio('pause')} buttonTitle="Pause" /> : <CustomButton doOnPress={() => this.toggleAudio('play')} buttonTitle="Play" /> }
+            {this.state.translationOn ? <CustomButton doOnPress={() => this.toggleTranslation('off')} buttonTitle="Translation Off" /> : <CustomButton doOnPress={() => this.toggleTranslation('on')} buttonTitle="Translation On" /> }
 
           </View>
         </View>
@@ -339,7 +350,7 @@ render() {
   var selectedBook = bookText(this.props.originatingBook);
   var selectedTrans = bookText(this.props.originatingBook + "Trans");
   return (
-    <View style={styles.text}><Verses activeWordIndex={this.props.activeWordIndex} book={selectedBook} transBook={selectedTrans} chapterStart={this.props.chapterStartIndex} verseStart={this.props.verseStartIndex} length={this.props.sectionLength} /></View>
+    <View style={styles.text}><Verses translationFlag={this.props.translationFlag} activeWordIndex={this.props.activeWordIndex} book={selectedBook} transBook={selectedTrans} chapterStart={this.props.chapterStartIndex} verseStart={this.props.verseStartIndex} length={this.props.sectionLength} /></View>
   )
 }
 }
@@ -382,6 +393,12 @@ class Verses extends React.Component {
             this.getVerseWords(book.c[curChapter].v[curVerse],this.props.activeWordIndex,lastWordIndex,curChapter,curVerse)
 //            <VerseWords activeWordIndex={this.props.activeWordIndex} curWordIndex={lastWordIndex} verse={book.c[curChapter].v[curVerse]} />
           );
+          if (this.props.translationFlag) {
+            verseText.push(
+              <View><Text>{transBook.text[curChapter][curVerse]}</Text></View>
+            );
+          }
+
           lastWordIndex = lastWordIndex + book.c[curChapter].v[curVerse].w.length;
           curVerse = curVerse + 1;
         }
