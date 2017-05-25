@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -41,6 +40,7 @@
 		A1D772081ED28A1800BFFEAC /* labels in Resources */ = {isa = PBXBuildFile; fileRef = A1D772071ED28A1800BFFEAC /* labels */; };
 		DBD0945DBBAE4E8B87F82056 /* TaameyFrank-taamim-fix.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A78D586241FA4133B3AE31EB /* TaameyFrank-taamim-fix.ttf */; };
 		DFE72E2AA32642DCBB704E38 /* libRNFS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8435D9D5E26F4E68A30C477F /* libRNFS.a */; };
+		F0F4A0D6B5F241A2AA7E1C26 /* stamashkenazclm-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E7A8D8B06E4B483CB747A03F /* stamashkenazclm-webfont.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -281,6 +281,7 @@
 		A78D586241FA4133B3AE31EB /* TaameyFrank-taamim-fix.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "TaameyFrank-taamim-fix.ttf"; path = "../fonts/TaameyFrank-taamim-fix.ttf"; sourceTree = "<group>"; };
 		CA69AAAEF7BD451989BA35E8 /* libRNSound.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSound.a; sourceTree = "<group>"; };
 		E826022C899342CF934B1A3D /* RNFS.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFS.xcodeproj; path = "../node_modules/react-native-fs/RNFS.xcodeproj"; sourceTree = "<group>"; };
+		E7A8D8B06E4B483CB747A03F /* stamashkenazclm-webfont.ttf */ = {isa = PBXFileReference; name = "stamashkenazclm-webfont.ttf"; path = "../fonts/stamashkenazclm-webfont.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -456,6 +457,7 @@
 			isa = PBXGroup;
 			children = (
 				A78D586241FA4133B3AE31EB /* TaameyFrank-taamim-fix.ttf */,
+				E7A8D8B06E4B483CB747A03F /* stamashkenazclm-webfont.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -923,6 +925,7 @@
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				DBD0945DBBAE4E8B87F82056 /* TaameyFrank-taamim-fix.ttf in Resources */,
 				A18D4D721ECF979F00508ABD /* audio in Resources */,
+				F0F4A0D6B5F241A2AA7E1C26 /* stamashkenazclm-webfont.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

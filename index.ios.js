@@ -79,7 +79,7 @@ const loadAboutPage = () => {
 class CustomButton extends React.Component {
   render() {
     return (
-      <TouchableOpacity onPress={this.props.doOnPress}>
+      <TouchableOpacity onPress={this.props.doOnPress} style={this.props.style ? this.props.style : null} >
         <Text style={styles.button}>
           {this.props.buttonTitle}
         </Text>
@@ -177,6 +177,7 @@ class PlayViewScreen extends React.Component {
       activeWordIndex:0,
       audioPlaying: false,
       translationOn: true,
+      tikkunOn: false,
     };
   }
 
@@ -218,6 +219,15 @@ class PlayViewScreen extends React.Component {
     }
     else {
       this.setState({translationOn: false});
+    }
+  }
+
+  toggleTikkun(action) {
+    if (action == 'on') {
+      this.setState({tikkunOn: true});
+    }
+    else {
+      this.setState({tikkunOn: false});
     }
   }
 
@@ -276,11 +286,12 @@ class PlayViewScreen extends React.Component {
       return (
         <View style={{flex: 1}}>
           <ScrollView>
-            <TextFile translationFlag={this.state.translationOn} activeWordIndex={this.state.activeWordIndex} originatingBook={params.originatingBook} sectionLength={params.length} chapterStartIndex={chapterStartIndex} verseStartIndex={verseStartIndex} />
+            <TextFile translationFlag={this.state.translationOn} tikkunFlag={this.state.tikkunOn} activeWordIndex={this.state.activeWordIndex} originatingBook={params.originatingBook} sectionLength={params.length} chapterStartIndex={chapterStartIndex} verseStartIndex={verseStartIndex} />
           </ScrollView>
-          <View>
-            {this.state.audioPlaying ? <CustomButton doOnPress={() => this.toggleAudio('pause')} buttonTitle="Pause" /> : <CustomButton doOnPress={() => this.toggleAudio('play')} buttonTitle="Play" /> }
-            {this.state.translationOn ? <CustomButton doOnPress={() => this.toggleTranslation('off')} buttonTitle="Translation Off" /> : <CustomButton doOnPress={() => this.toggleTranslation('on')} buttonTitle="Translation On" /> }
+          <View style={styles.footer}>
+            {this.state.audioPlaying ? <CustomButton style={styles.footerButton} doOnPress={() => this.toggleAudio('pause')} buttonTitle="Pause" /> : <CustomButton style={styles.footerButton} doOnPress={() => this.toggleAudio('play')} buttonTitle="Play" /> }
+            {this.state.translationOn ? <CustomButton style={styles.footerButton} doOnPress={() => this.toggleTranslation('off')} buttonTitle="Translation Off" /> : <CustomButton style={styles.footerButton} doOnPress={() => this.toggleTranslation('on')} buttonTitle="Translation On" /> }
+            {this.state.tikkunOn ? <CustomButton style={styles.footerButton} doOnPress={() => this.toggleTikkun('off')} buttonTitle="Toggle Tikkun" /> : <CustomButton style={styles.footerButton} doOnPress={() => this.toggleTikkun('on')} buttonTitle="Toggle Tikkun" /> }
 
           </View>
         </View>
@@ -350,7 +361,7 @@ render() {
   var selectedBook = bookText(this.props.originatingBook);
   var selectedTrans = bookText(this.props.originatingBook + "Trans");
   return (
-    <View style={styles.text}><Verses translationFlag={this.props.translationFlag} activeWordIndex={this.props.activeWordIndex} book={selectedBook} transBook={selectedTrans} chapterStart={this.props.chapterStartIndex} verseStart={this.props.verseStartIndex} length={this.props.sectionLength} /></View>
+    <View style={styles.text}><Verses translationFlag={this.props.translationFlag} tikkunFlag={this.props.tikkunFlag} activeWordIndex={this.props.activeWordIndex} book={selectedBook} transBook={selectedTrans} chapterStart={this.props.chapterStartIndex} verseStart={this.props.verseStartIndex} length={this.props.sectionLength} /></View>
   )
 }
 }
@@ -362,16 +373,28 @@ class Verses extends React.Component {
     var words = [];
     for (i = 0; i < verse.w.length; i++) {
 
-
-      words.push(
-       <View style={styles.text}>
-        {i == 0 ? <Text>{curChapterIndex+1}:{curVerseIndex+1}</Text> : null}
-        <TouchableOpacity key={i}>
-          <Text style={curWordIndex+i == activeWordIndex? [styles.word, styles.active] : styles.word}>
-            {verse.w[i].replace(/\//g, '')}
-          </Text>
-        </TouchableOpacity>
-       </View>);
+      if (this.props.tikkunFlag) {
+        words.push(
+          <View style={styles.text}>
+            {i == 0 ? <Text>{curChapterIndex + 1}:{curVerseIndex + 1}</Text> : null}
+            <TouchableOpacity key={i}>
+              <Text style={curWordIndex + i == activeWordIndex ? [styles.stam, styles.active] : styles.stam}>
+                {verse.w[i].replace(/\//g, '').replace(/[\u0591-\u05C7]/g,"")}
+              </Text>
+            </TouchableOpacity>
+          </View>);
+      }
+      else {
+        words.push(
+          <View style={styles.text}>
+            {i == 0 ? <Text>{curChapterIndex + 1}:{curVerseIndex + 1}</Text> : null}
+            <TouchableOpacity key={i}>
+              <Text style={curWordIndex + i == activeWordIndex ? [styles.word, styles.active] : styles.word}>
+                {verse.w[i].replace(/\//g, '')}
+              </Text>
+            </TouchableOpacity>
+          </View>);
+      }
     }
     return words;
   }
@@ -465,10 +488,24 @@ const styles = StyleSheet.create({
     fontSize: 36,
     fontFamily: "Taamey Frank Taamim Fix",
   },
+  stam: {
+    flex:0,
+    padding: 4,
+    fontSize: 30,
+    fontFamily: "Stam Ashkenaz CLM",
+  },
   active: {
     backgroundColor: '#ffff9d',
   },
-
+  footer: {
+    flexDirection:'row',
+    alignItems: 'stretch',
+    alignContent: 'stretch',
+  },
+  footerButton: {
+    flexGrow: 1,
+    width: 10,
+  }
 
 });
 
