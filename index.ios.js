@@ -171,14 +171,15 @@ class PlayViewScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      audio: "",
-      labels: "",
-      curWordIndex: 0,
+      audio: null,
+      labels: null,
       activeWordIndex:0,
       audioPlaying: false,
       translationOn: true,
       tikkunOn: false,
     };
+    this.changeAudioTime = this.changeAudioTime.bind(this);
+
   }
 
 
@@ -187,7 +188,7 @@ class PlayViewScreen extends React.Component {
     clearInterval(timeChecker);
 
     var wordIndex = this.state.activeWordIndex;
-    if (this.state.audio == "" || this.state.labels == "") { return }
+    if (!this.state.audio || !this.state.labels ) { return }
 
     this.state.audio.getCurrentTime((curTime) =>  {
       var changeTime = parseFloat(this.state.labels[wordIndex+1]);
@@ -211,6 +212,15 @@ class PlayViewScreen extends React.Component {
       this.state.audio.pause();
       this.setState({audioPlaying: false});
     }
+  }
+
+  changeAudioTime(wordIndex){
+    if (!this.state.audio || !this.state.labels ) { return }
+    this.toggleAudio('pause');
+    var newTime = parseFloat(this.state.labels[wordIndex]);
+    this.state.audio.setCurrentTime(newTime);
+    this.setState({activeWordIndex: wordIndex});
+    this.toggleAudio('play');
   }
 
   toggleTranslation(action) {
@@ -262,7 +272,7 @@ class PlayViewScreen extends React.Component {
   }
   render() {
 
-    if (this.state.audio == "" || this.state.labels == "") {
+    if (!this.state.audio || !this.state.labels ) {
     return (
       <View>
         <ActivityIndicator
@@ -286,7 +296,7 @@ class PlayViewScreen extends React.Component {
       return (
         <View style={{flex: 1}}>
           <ScrollView>
-            <TextFile translationFlag={this.state.translationOn} tikkunFlag={this.state.tikkunOn} activeWordIndex={this.state.activeWordIndex} originatingBook={params.originatingBook} sectionLength={params.length} chapterStartIndex={chapterStartIndex} verseStartIndex={verseStartIndex} />
+            <TextFile changeAudioTime={this.changeAudioTime} translationFlag={this.state.translationOn} tikkunFlag={this.state.tikkunOn} activeWordIndex={this.state.activeWordIndex} originatingBook={params.originatingBook} sectionLength={params.length} chapterStartIndex={chapterStartIndex} verseStartIndex={verseStartIndex} />
           </ScrollView>
           <View style={styles.footer}>
             {this.state.audioPlaying ? <CustomButton style={styles.footerButton} doOnPress={() => this.toggleAudio('pause')} buttonTitle="Pause" /> : <CustomButton style={styles.footerButton} doOnPress={() => this.toggleAudio('play')} buttonTitle="Play" /> }
@@ -361,7 +371,7 @@ render() {
   var selectedBook = bookText(this.props.originatingBook);
   var selectedTrans = bookText(this.props.originatingBook + "Trans");
   return (
-    <View style={styles.text}><Verses translationFlag={this.props.translationFlag} tikkunFlag={this.props.tikkunFlag} activeWordIndex={this.props.activeWordIndex} book={selectedBook} transBook={selectedTrans} chapterStart={this.props.chapterStartIndex} verseStart={this.props.verseStartIndex} length={this.props.sectionLength} /></View>
+    <View style={styles.text}><Verses changeAudioTime={this.props.changeAudioTime} translationFlag={this.props.translationFlag} tikkunFlag={this.props.tikkunFlag} activeWordIndex={this.props.activeWordIndex} book={selectedBook} transBook={selectedTrans} chapterStart={this.props.chapterStartIndex} verseStart={this.props.verseStartIndex} length={this.props.sectionLength} /></View>
   )
 }
 }
@@ -370,34 +380,45 @@ render() {
 class Verses extends React.Component {
 
   getVerseWords(verse, activeWordIndex, curWordIndex, curChapterIndex, curVerseIndex,) {
-    var words = [];
-    for (i = 0; i < verse.w.length; i++) {
 
-      if (this.props.tikkunFlag) {
-        words.push(
-          <View style={styles.text}>
-            {i == 0 ? <Text>{curChapterIndex + 1}:{curVerseIndex + 1}</Text> : null}
-            <TouchableOpacity key={i}>
-              <Text style={curWordIndex + i == activeWordIndex ? [styles.stam, styles.active] : styles.stam}>
-                {verse.w[i].replace(/\//g, '').replace(/[\u0591-\u05C7]/g,"")}
-              </Text>
-            </TouchableOpacity>
-          </View>);
-      }
-      else {
-        words.push(
-          <View style={styles.text}>
-            {i == 0 ? <Text>{curChapterIndex + 1}:{curVerseIndex + 1}</Text> : null}
-            <TouchableOpacity key={i}>
-              <Text style={curWordIndex + i == activeWordIndex ? [styles.word, styles.active] : styles.word}>
-                {verse.w[i].replace(/\//g, '')}
-              </Text>
-            </TouchableOpacity>
-          </View>);
-      }
+    if (this.props.tikkunFlag) {
+
+      var words = verse.w.map((word, i) =>
+        <View style={styles.text}>
+          {i == 0 ? <Text>{curChapterIndex + 1}:{curVerseIndex + 1}</Text> : null}
+          <TouchableOpacity onPress={() => {
+            this.props.changeAudioTime(curWordIndex + i)
+          }}>
+            <Text style={curWordIndex + i == activeWordIndex ? [styles.stam, styles.active] : styles.stam}>
+              {verse.w[i].replace(/\//g, '').replace(/[\u0591-\u05C7]/g,"")}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      );
+
+      return words;
     }
-    return words;
+
+    else {
+
+      var words = verse.w.map((word, i) =>
+        <View style={styles.text}>
+          {i == 0 ? <Text>{curChapterIndex + 1}:{curVerseIndex + 1}</Text> : null}
+          <TouchableOpacity key={curWordIndex + i} onPress={() => {
+            this.props.changeAudioTime(curWordIndex + i)
+          }}>
+            <Text style={curWordIndex + i == activeWordIndex ? [styles.word, styles.active] : styles.word}>
+              {verse.w[i].replace(/\//g, '')}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      );
+
+      return words;
+
+    }
   }
+
 
   render() {
 
