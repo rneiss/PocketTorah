@@ -132,7 +132,7 @@ class TorahReadingsScreen extends React.Component {
     var parshahArray = aliyahData.parshiot.parsha.map(x => x);
 
     //create button for each parsha
-    var content = parshahArray.map((obj) => (<CustomButton doOnPress={() => navigate('AliyahSelectScreen', { parshah: obj._id, aliyot: obj.fullkriyah.aliyah, originatingBook: obj._verse.split(" ")[0] })} buttonTitle={obj._id} />) );
+    var content = parshahArray.map((obj) => (<CustomButton doOnPress={() => navigate('AliyahSelectScreen', { parshah: obj._id, maftirOffset: obj.maftirOffset, aliyot: obj.fullkriyah.aliyah, originatingBook: obj._verse.split(" ")[0] })} buttonTitle={obj._id} />) );
 
     const { params } = this.props.navigation.state;
     const { navigate } = this.props.navigation;
@@ -153,7 +153,7 @@ class AliyahSelectScreen extends React.Component {
   render() {
     const { params } = this.props.navigation.state;
     const { navigate } = this.props.navigation;
-    var content = params.aliyot.map((obj) => (<CustomButton doOnPress={() => navigate('PlayViewScreen', { parshah: obj._id, aliyotStart: obj._begin, aliyotEnd: obj._end, length: obj._numverses, title: params.parshah, originatingBook: params.originatingBook, aliyahNum: obj._num })} buttonTitle={obj._num !="M" ? "Aliyah "+obj._num+": "+obj._begin+"-"+obj._end : "Maftir Aliyah"+": "+obj._begin+"-"+obj._end} />) );
+    var content = params.aliyot.map((obj) => (<CustomButton doOnPress={() => navigate('PlayViewScreen', { parshah: obj._id, aliyotStart: obj._begin, aliyotEnd: obj._end, maftirOffset: params.maftirOffset, length: obj._numverses, title: params.parshah, originatingBook: params.originatingBook, aliyahNum: obj._num })} buttonTitle={obj._num !="M" ? "Aliyah "+obj._num+": "+obj._begin+"-"+obj._end : "Maftir Aliyah"+": "+obj._begin+"-"+obj._end} />) );
 
     return (
       <View>
@@ -191,6 +191,7 @@ class PlayViewScreen extends React.Component {
       tikkunOn: false,
       modalVisible: false,
       textSizeMultiplier: 1,
+      maftirWordOffset: 0
     };
     this.changeAudioTime = this.changeAudioTime.bind(this);
 
@@ -266,8 +267,15 @@ class PlayViewScreen extends React.Component {
 
 
   componentDidMount() {
-    const { params } = this.props.navigation.state;
-    var audioFileName = "audio/"+params.title.replace(/[ ’]/g, '')+"-"+ params.aliyahNum+".mp3";
+    var { params } = this.props.navigation.state;
+    if (params.aliyahNum == "M") {
+      params.aliyahNum = "7";
+      this.setState({
+        maftirWordOffset: params.maftirOffset,
+        activeWordIndex: params.maftirOffset
+      });
+    }
+    var audioFileName = "audio/" + params.title.replace(/[ ’]/g, '') + "-" + params.aliyahNum + ".mp3";
     var aliyahAudio = new Sound(audioFileName, Sound.MAIN_BUNDLE, (error) => {
       if (error) {
         console.log('failed to load the sound', error);
@@ -341,7 +349,7 @@ class PlayViewScreen extends React.Component {
          </View>
         </Modal>
           <ScrollView>
-            <TextFile changeAudioTime={this.changeAudioTime} translationFlag={this.state.translationOn} tikkunFlag={this.state.tikkunOn} textSizeMultiplier={this.state.textSizeMultiplier} activeWordIndex={this.state.activeWordIndex} originatingBook={params.originatingBook} sectionLength={params.length} chapterStartIndex={chapterStartIndex} verseStartIndex={verseStartIndex} />
+            <TextFile changeAudioTime={this.changeAudioTime} translationFlag={this.state.translationOn} tikkunFlag={this.state.tikkunOn} textSizeMultiplier={this.state.textSizeMultiplier} activeWordIndex={this.state.activeWordIndex} maftirWordOffset={this.state.maftirWordOffset} originatingBook={params.originatingBook} sectionLength={params.length} chapterStartIndex={chapterStartIndex} verseStartIndex={verseStartIndex} />
           </ScrollView>
           <View style={styles.footer}>
             {this.state.audioPlaying ? <CustomButton style={styles.footerButton} doOnPress={() => this.toggleAudio('pause')} buttonTitle="Pause" /> : <CustomButton style={styles.footerButton} doOnPress={() => this.toggleAudio('play')} buttonTitle="Play" /> }
@@ -415,7 +423,7 @@ render() {
   var selectedBook = bookText(this.props.originatingBook);
   var selectedTrans = bookText(this.props.originatingBook + "Trans");
   return (
-    <View style={styles.text}><Verses changeAudioTime={this.props.changeAudioTime} translationFlag={this.props.translationFlag} tikkunFlag={this.props.tikkunFlag} textSizeMultiplier={this.props.textSizeMultiplier} activeWordIndex={this.props.activeWordIndex} book={selectedBook} transBook={selectedTrans} chapterStart={this.props.chapterStartIndex} verseStart={this.props.verseStartIndex} length={this.props.sectionLength} /></View>
+    <View style={styles.text}><Verses changeAudioTime={this.props.changeAudioTime} translationFlag={this.props.translationFlag} tikkunFlag={this.props.tikkunFlag} textSizeMultiplier={this.props.textSizeMultiplier} activeWordIndex={this.props.activeWordIndex} maftirWordOffset={this.props.maftirWordOffset} book={selectedBook} transBook={selectedTrans} chapterStart={this.props.chapterStartIndex} verseStart={this.props.verseStartIndex} length={this.props.sectionLength} /></View>
   )
 }
 }
@@ -424,16 +432,16 @@ render() {
 class Verses extends React.Component {
 
   getVerseWords(verse, activeWordIndex, curWordIndex, curChapterIndex, curVerseIndex,) {
-
+    var maftirWordOffset = parseInt(this.props.maftirWordOffset);
     if (this.props.tikkunFlag) {
 
       var words = verse.w.map((word, i) =>
         <View style={styles.text}>
           {i == 0 ? <Text>{curChapterIndex + 1}:{curVerseIndex + 1}</Text> : null}
           <TouchableOpacity onPress={() => {
-            this.props.changeAudioTime(curWordIndex + i)
+            this.props.changeAudioTime(curWordIndex + i + maftirWordOffset)
           }}>
-            <Text style={curWordIndex + i == activeWordIndex ? [styles.stam, styles.active, {fontSize: 30*this.props.textSizeMultiplier}] : [styles.stam,{fontSize: 30*this.props.textSizeMultiplier}]}>
+            <Text style={curWordIndex + i + maftirWordOffset == activeWordIndex ? [styles.stam, styles.active, {fontSize: 30*this.props.textSizeMultiplier}] : [styles.stam,{fontSize: 30*this.props.textSizeMultiplier}]}>
               {verse.w[i].replace(/\//g, '').replace(/[\u0591-\u05C7]/g,"")}
             </Text>
           </TouchableOpacity>
@@ -448,11 +456,11 @@ class Verses extends React.Component {
       var words = verse.w.map((word, i) =>
         <View style={styles.text}>
           {i == 0 ? <Text>{curChapterIndex + 1}:{curVerseIndex + 1}</Text> : null}
-          <TouchableOpacity key={curWordIndex + i} onPress={() => {
-            this.props.changeAudioTime(curWordIndex + i)
+          <TouchableOpacity key={curWordIndex + i + maftirWordOffset} onPress={() => {
+            this.props.changeAudioTime(curWordIndex + i + maftirWordOffset)
           }}>
-            <Text style={curWordIndex + i == activeWordIndex ? [styles.word, styles.active,{fontSize: 36*this.props.textSizeMultiplier}] : [styles.word,{fontSize: 36*this.props.textSizeMultiplier}]}>
-              {verse.w[i].replace(/\//g, '')}
+            <Text style={curWordIndex + i + maftirWordOffset == activeWordIndex ? [styles.word, styles.active,{fontSize: 36*this.props.textSizeMultiplier}] : [styles.word,{fontSize: 36*this.props.textSizeMultiplier}]}>
+              {verse.w[i].replace(/\//g, '')} {curWordIndex+i+maftirWordOffset}
             </Text>
           </TouchableOpacity>
         </View>
@@ -479,7 +487,6 @@ class Verses extends React.Component {
           }
           verseText.push(
             this.getVerseWords(book.c[curChapter].v[curVerse],this.props.activeWordIndex,lastWordIndex,curChapter,curVerse)
-//            <VerseWords activeWordIndex={this.props.activeWordIndex} curWordIndex={lastWordIndex} verse={book.c[curChapter].v[curVerse]} />
           );
           if (this.props.translationFlag) {
             verseText.push(
