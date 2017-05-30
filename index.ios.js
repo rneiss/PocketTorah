@@ -460,7 +460,7 @@ class Verses extends React.Component {
             this.props.changeAudioTime(curWordIndex + i + maftirWordOffset)
           }}>
             <Text style={curWordIndex + i + maftirWordOffset == activeWordIndex ? [styles.word, styles.active,{fontSize: 36*this.props.textSizeMultiplier}] : [styles.word,{fontSize: 36*this.props.textSizeMultiplier}]}>
-              {verse.w[i].replace(/\//g, '')} {curWordIndex+i+maftirWordOffset}
+              {verse.w[i].replace(/\//g, '')}
             </Text>
           </TouchableOpacity>
         </View>
