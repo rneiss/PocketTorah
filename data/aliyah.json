@@ -398,7 +398,8 @@
                 "_hebrew": "נֹחַ",
                 "_verse": "Genesis 6:9 - 11:32",
                 "_haftara": "Isaiah 54:1 - 55:5",
-                "_sephardic": "Isaiah 54:1 - 54:10"
+                "_sephardic": "Isaiah 54:1 - 54:10",
+                "maftirOffset": "328"
             },
             {
                 "fullkriyah": {
@@ -594,6 +595,7 @@
                 },
                 "_id": "Lech-Lecha",
                 "_num": "3",
+                "maftirOffset": "251",
                 "_hebrew": "לֶךְ־לְךָ",
                 "_verse": "Genesis 12:1 - 17:27",
                 "_haftara": "Isaiah 40:27 - 41:16"
@@ -791,6 +793,7 @@
                     ]
                 },
                 "_id": "Vayera",
+                "maftirOffset": "307",
                 "_num": "4",
                 "_hebrew": "וַיֵּרָא",
                 "_verse": "Genesis 18:1 - 22:24",
@@ -990,6 +993,7 @@
                     ]
                 },
                 "_id": "Chayei Sara",
+                "maftirOffset": "32",
                 "_num": "5",
                 "_hebrew": "חַיֵּי שָֹרָה",
                 "_verse": "Genesis 23:1 - 25:18",
@@ -1189,6 +1193,7 @@
                 },
                 "_id": "Toldot",
                 "_num": "6",
+                "maftirOffset": "42",
                 "_hebrew": "תּוֹלְדוֹת",
                 "_verse": "Genesis 25:19 - 28:9",
                 "_haftara": "Malachi 1:1 - 2:7"
@@ -1386,6 +1391,7 @@
                     ]
                 },
                 "_id": "Vayetzei",
+                "maftirOffset": "166",
                 "_num": "7",
                 "_hebrew": "וַיֵּצֵא",
                 "_verse": "Genesis 28:10 - 32:3",
@@ -1585,6 +1591,7 @@
                     ]
                 },
                 "_id": "Vayishlach",
+                "maftirOffset": "190",
                 "_num": "8",
                 "_hebrew": "וַיִּשְׁלַח",
                 "_verse": "Genesis 32:4 - 36:43",
@@ -1783,6 +1790,7 @@
                     ]
                 },
                 "_id": "Vayeshev",
+                "maftirOffset": "264",
                 "_num": "9",
                 "_hebrew": "וַיֵּשֶׁב",
                 "_verse": "Genesis 37:1 - 40:23",
@@ -1981,6 +1989,7 @@
                     ]
                 },
                 "_id": "Miketz",
+                "maftirOffset": "230",
                 "_num": "10",
                 "_hebrew": "מִקֵּץ",
                 "_verse": "Genesis 41:1 - 44:17",
@@ -2179,6 +2188,7 @@
                     ]
                 },
                 "_id": "Vayigash",
+                "maftirOffset": "256",
                 "_num": "11",
                 "_hebrew": "וַיִּגַּשׁ",
                 "_verse": "Genesis 44:18 - 47:27",
@@ -2377,6 +2387,7 @@
                     ]
                 },
                 "_id": "Vayechi",
+                "maftirOffset": "24",
                 "_num": "12",
                 "_hebrew": "וַיְחִי",
                 "_verse": "Genesis 47:28 - 50:26",
