@@ -341,6 +341,9 @@ class PlayViewScreen extends React.Component {
             <Text style={[styles.word,{fontSize: wordFontSize}]}>בְּרֵאשִׁ֖ית </Text>
             <Text style={[styles.stam,{fontSize: stamFontSize}]}>בראשית </Text>
 
+            <Text>Set Audio Speed:</Text>
+            <Slider minimumValue={.5} maximumValue={2} value={1} onValueChange={(value) => this.state.audio.setSpeed(value)} />
+
 
 
             <CustomButton doOnPress={() => this.toggleSettingsModal('close')} buttonTitle="Save Settings" />
