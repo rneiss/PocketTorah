@@ -198,6 +198,7 @@
                 "_hebrew": "בְּרֵאשִׁית",
                 "_verse": "Genesis 1:1 - 6:8",
                 "_haftara": "Isaiah 42:5 - 43:10",
+                "_haftaraLength": "31",
                 "_sephardic": "Isaiah 42:5 - 42:21",
                 "maftirOffset": "164"
             },
@@ -398,6 +399,7 @@
                 "_hebrew": "נֹחַ",
                 "_verse": "Genesis 6:9 - 11:32",
                 "_haftara": "Isaiah 54:1 - 55:5",
+                "_haftaraLength": "22",
                 "_sephardic": "Isaiah 54:1 - 54:10",
                 "maftirOffset": "328"
             },
@@ -598,6 +600,7 @@
                 "maftirOffset": "251",
                 "_hebrew": "לֶךְ־לְךָ",
                 "_verse": "Genesis 12:1 - 17:27",
+                "_haftaraLength": "21",
                 "_haftara": "Isaiah 40:27 - 41:16"
             },
             {
@@ -798,6 +801,7 @@
                 "_hebrew": "וַיֵּרָא",
                 "_verse": "Genesis 18:1 - 22:24",
                 "_haftara": "Kings_1 4:1 - 4:37",
+                "_haftaraLength": "21",
                 "_sephardic": "Kings_1 4:1 - 4:23"
             },
             {

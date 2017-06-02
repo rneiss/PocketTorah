@@ -56,7 +56,21 @@ import ExodusTrans from './data/torah/translation/Exodus.json';
 import DeuteronomyTrans from './data/torah/translation/Deuteronomy.json';
 import LeviticusTrans from './data/torah/translation/Leviticus.json';
 import NumbersTrans from './data/torah/translation/Numbers.json';
-
+import IsaiahTrans from './data/torah/translation/Isaiah.json';
+import JoshuaTrans from './data/torah/translation/Joshua.json';
+import JudgesTrans from './data/torah/translation/Judges.json';
+import MalachiTrans from './data/torah/translation/Malachi.json';
+import ObadiahTrans from './data/torah/translation/Obadiah.json';
+import Samuel_1Trans from './data/torah/translation/Samuel_1.json';
+import Samuel_2Trans from './data/torah/translation/Samuel_2.json';
+import ZechariahTrans from './data/torah/translation/Zechariah.json';
+import JoelTrans from './data/torah/translation/Joel.json';
+import JeremiahTrans from './data/torah/translation/Jeremiah.json';
+import HoseaTrans from './data/torah/translation/Hosea.json';
+import EzekielTrans from './data/torah/translation/Ezekiel.json';
+import AmosTrans from './data/torah/translation/Amos.json';
+import Kings_2Trans from './data/torah/translation/Kings_2.json';
+import Kings_1Trans from './data/torah/translation/Kings_1.json';
 
 
 // Import the react-native-sound module
@@ -132,7 +146,7 @@ class TorahReadingsScreen extends React.Component {
     var parshahArray = aliyahData.parshiot.parsha.map(x => x);
 
     //create button for each parsha
-    var content = parshahArray.map((obj) => (<CustomButton doOnPress={() => navigate('AliyahSelectScreen', { parshah: obj._id, maftirOffset: obj.maftirOffset, aliyot: obj.fullkriyah.aliyah, originatingBook: obj._verse.split(" ")[0] })} buttonTitle={obj._id} />) );
+    var content = parshahArray.map((obj) => (<CustomButton doOnPress={() => navigate('AliyahSelectScreen', { parshah: obj._id, haftara: obj._haftara, haftaraLength: obj._haftaraLength,  maftirOffset: obj.maftirOffset, aliyot: obj.fullkriyah.aliyah, originatingBook: obj._verse.split(" ")[0] })} buttonTitle={obj._id} />) );
 
     const { params } = this.props.navigation.state;
     const { navigate } = this.props.navigation;
@@ -153,8 +167,16 @@ class AliyahSelectScreen extends React.Component {
   render() {
     const { params } = this.props.navigation.state;
     const { navigate } = this.props.navigation;
-    var content = params.aliyot.map((obj) => (<CustomButton doOnPress={() => navigate('PlayViewScreen', { parshah: obj._id, aliyotStart: obj._begin, aliyotEnd: obj._end, maftirOffset: params.maftirOffset, length: obj._numverses, title: params.parshah, originatingBook: params.originatingBook, aliyahNum: obj._num })} buttonTitle={obj._num !="M" ? "Aliyah "+obj._num+": "+obj._begin+"-"+obj._end : "Maftir Aliyah"+": "+obj._begin+"-"+obj._end} />) );
+    var content = params.aliyot.map((obj) => (<CustomButton doOnPress={() => navigate('PlayViewScreen', { parshah: obj._id, aliyotStart: obj._begin, aliyotEnd: obj._end, length: obj._numverses, title: params.parshah, originatingBook: params.originatingBook, aliyahNum: obj._num })} buttonTitle={obj._num !="M" ? "Aliyah "+obj._num+": "+obj._begin+"-"+obj._end : "Maftir Aliyah"+": "+obj._begin+"-"+obj._end} />) );
+    if (params.haftara) {
+      var hafTitle = params.haftara.split(' ')[0];
+      var hafStart = params.haftara.split(' ')[1];
+      var hafEnd = params.haftara.split(' ')[3];
 
+      content.push(
+        <CustomButton doOnPress={() => navigate('PlayViewScreen', {parshah: hafTitle, aliyotStart: hafStart, aliyotEnd: hafEnd, length: params.haftaraLength, title: params.parshah, originatingBook: hafTitle, aliyahNum: "H" })} buttonTitle={"Haftarah"+": "+hafTitle+" "+hafStart+"-"+hafEnd} />
+      );
+    }
     return (
       <View>
         {content}
@@ -389,6 +411,8 @@ render() {
             return Genesis.Tanach.tanach.book;
           case 'GenesisTrans':
             return GenesisTrans;
+          case 'IsaiahTrans':
+            return IsaiahTrans;
           case 'ExodusTrans':
             return ExodusTrans;
           case 'DeuteronomyTrans':
@@ -397,6 +421,34 @@ render() {
             return LeviticusTrans;
           case 'NumbersTrans':
             return NumbersTrans;
+          case 'JoshuaTrans':
+             return JoshuaTrans;
+          case 'JudgesTrans':
+             return JudgesTrans;
+          case 'MalachiTrans':
+             return MalachiTrans;
+          case 'ObadiahTrans':
+             return ObadiahTrans;
+          case 'Samuel_1Trans':
+             return Samuel_1Trans;
+          case 'Samuel_2Trans':
+             return Samuel_2Trans;
+          case 'ZechariahTrans':
+             return ZechariahTrans;
+          case 'JoelTrans':
+             return JoelTrans;
+          case 'JeremiahTrans':
+             return JeremiahTrans;
+          case 'HoseaTrans':
+             return HoseaTrans;
+          case 'EzekielTrans':
+             return EzekielTrans;
+          case 'AmosTrans':
+             return AmosTrans;
+          case 'Kings_2Trans':
+             return Kings_2Trans;
+          case 'Kings_1Trans':
+             return Kings_1Trans;
           case 'Hosea':
             return Hosea.Tanach.tanach.book;
           case 'Isaiah':
@@ -471,7 +523,7 @@ class Verses extends React.Component {
             this.props.changeAudioTime(curWordIndex + i + maftirWordOffset)
           }}>
             <Text style={curWordIndex + i + maftirWordOffset == activeWordIndex ? [styles.word, styles.active,{fontSize: 36*this.props.textSizeMultiplier}] : [styles.word,{fontSize: 36*this.props.textSizeMultiplier}]}>
-              {verse.w[i].replace(/\//g, '')} 
+              {verse.w[i].replace(/\//g, '')}
             </Text>
           </TouchableOpacity>
         </View>
