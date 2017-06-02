@@ -213,15 +213,23 @@ class PlayViewScreen extends React.Component {
         });
       }
     });
-
     timeChecker = setTimeout(() => {this.checkTime()});
 
   }
 
   toggleAudio(action) {
     if (action == 'play') {
+      if (this.state.maftirWordOffset > 0) {
+        this.state.audio.getCurrentTime((seconds) => {
+          if (seconds == 0) {
+            this.changeAudioTime(parseInt(this.state.maftirWordOffset));
+          }
+        });
+      }
+
       this.state.audio.play();
       this.setState({audioPlaying: true});
+
     }
     else {
       this.state.audio.pause();
@@ -463,7 +471,7 @@ class Verses extends React.Component {
             this.props.changeAudioTime(curWordIndex + i + maftirWordOffset)
           }}>
             <Text style={curWordIndex + i + maftirWordOffset == activeWordIndex ? [styles.word, styles.active,{fontSize: 36*this.props.textSizeMultiplier}] : [styles.word,{fontSize: 36*this.props.textSizeMultiplier}]}>
-              {verse.w[i].replace(/\//g, '')}
+              {verse.w[i].replace(/\//g, '')} 
             </Text>
           </TouchableOpacity>
         </View>
