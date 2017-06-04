@@ -26,6 +26,8 @@ import {
   StackNavigator,
 } from 'react-navigation';
 
+import calendar from './data/calendar.json';
+import aliyahData from './data/aliyah.json';
 
 // Import Texts
 import Amos from './data/torah/json/Amos.json';
@@ -81,12 +83,24 @@ Sound.setCategory('Playback');
 
 
 const loadTorahReadingScreen = () => {
-  Alert.alert('Button has been pressed!');
+
+  let parashah;
+  let weekOffset = 1;
+
+  //See if there's a Parshah this week -- If not return next week's, if not return the week after that... אא"וו
+  while (!parashah) {
+    let date = new Date();
+    date.setDate(date.getDate() + (6 - 1 - date.getDay() + 7) % 7 + weekOffset);
+    var day = date.getDate();
+    var month = date.getMonth()+1; //January is 0!
+    var year = date.getFullYear();
+    dateString = month + '/' + day + '/' + year;
+    parashah = calendar[dateString];
+    weekOffset += 1;
+  }
+  Alert.alert(parashah.name);
 };
 
-const loadThisWeeksTorahReading = () => {
-  Alert.alert('Button has been pressed!');
-};
 
 const loadAboutPage = () => {
   Alert.alert('Button has been pressed!');
@@ -142,7 +156,6 @@ class TorahReadingsScreen extends React.Component {
   };
   render() {
     //convert parshah json to array
-    var aliyahData = require('./data/aliyah.json');
     var parshahArray = aliyahData.parshiot.parsha.map(x => x);
 
     //create button for each parsha
