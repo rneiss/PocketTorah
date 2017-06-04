@@ -82,30 +82,6 @@ var Sound = require('react-native-sound');
 Sound.setCategory('Playback');
 
 
-const loadTorahReadingScreen = () => {
-
-  let parashah;
-  let weekOffset = 1;
-
-  //See if there's a Parshah this week -- If not return next week's, if not return the week after that... אא"וו
-  while (!parashah) {
-    let date = new Date();
-    date.setDate(date.getDate() + (6 - 1 - date.getDay() + 7) % 7 + weekOffset);
-    var day = date.getDate();
-    var month = date.getMonth()+1; //January is 0!
-    var year = date.getFullYear();
-    dateString = month + '/' + day + '/' + year;
-    parashah = calendar[dateString];
-    weekOffset += 1;
-  }
-  Alert.alert(parashah.name);
-};
-
-
-const loadAboutPage = () => {
-  Alert.alert('Button has been pressed!');
-};
-
 
 class CustomButton extends React.Component {
   render() {
@@ -125,10 +101,42 @@ class HomeScreen extends React.Component {
   };
   render() {
     const { navigate } = this.props.navigation;
+
+    //figure out current parshah
+    let parashah;
+    let weekOffset = 1;
+
+
+    while (!parashah) {
+      let date = new Date();
+      date.setDate(date.getDate() + (6 - 1 - date.getDay() + 7) % 7 + weekOffset);
+      var day = date.getDate();
+      var month = date.getMonth()+1; //January is 0!
+      var year = date.getFullYear();
+      dateString = month + '/' + day + '/' + year;
+      parashah = calendar[dateString];
+      weekOffset += 1;
+    }
+
+    let parshahLookup;
+
+    for (q = 0; q < aliyahData.parshiot.parsha.length; q++) {
+      console.log(q)
+      console.log(aliyahData.parshiot.parsha[q]._id)
+      console.log(parashah.name)
+
+      if (aliyahData.parshiot.parsha[q]._id.replace(/[ ’]/g, '\'') == parashah.name ) {
+        parshahLookup = aliyahData.parshiot.parsha[q];
+        break;
+      }
+
+    }
+    //</end current parshah lookup>
+
     return (
       <ScrollView>
         <CustomButton doOnPress={() => navigate('TorahReadingsScreen')} buttonTitle="List of Torah Readings" />
-        <CustomButton doOnPress={loadTorahReadingScreen} buttonTitle="This Week's Torah Readings" />
+        <CustomButton doOnPress={() => navigate('AliyahSelectScreen',{ parshah: parshahLookup._id, haftara: parshahLookup._haftara, haftaraLength: parshahLookup._haftaraLength, haftaraLength2: parshahLookup._haftaraLength2,  maftirOffset: parshahLookup.maftirOffset, aliyot: parshahLookup.fullkriyah.aliyah, originatingBook: parshahLookup._verse.split(" ")[0] })}  buttonTitle="This Week's Torah Readings" />
         <CustomButton doOnPress={() => navigate('About')} buttonTitle="About this App" />
       </ScrollView>
     );
