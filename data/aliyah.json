@@ -2805,6 +2805,7 @@
                 "_num": "14",
                 "_hebrew": "וָאֵרָא",
                 "_verse": "Exodus 6:2 - 9:35",
+                "_haftaraLength": "23",
                 "_haftara": "Ezekiel 28:25 - 29:21"
             },
             {
@@ -3004,6 +3005,7 @@
                 "_num": "15",
                 "_hebrew": "בֹּא",
                 "_verse": "Exodus 10:1 - 13:16",
+                "_haftaraLength": "16",
                 "_haftara": "Jeremiah 46:13 - 46:28"
             },
             {
@@ -3203,6 +3205,7 @@
                 "_num": "16",
                 "_hebrew": "בְּשַׁלַּח",
                 "_verse": "Exodus 13:17 - 17:16",
+                "_haftaraLength": "52",
                 "_haftara": "Judges 4:4 - 5:31",
                 "_sephardic": "Judges 5:1 - 5:31"
             },
@@ -3429,6 +3432,8 @@
                 "_num": "17",
                 "_hebrew": "יִתְרוֹ",
                 "_verse": "Exodus 18:1 - 20:23",
+                "_haftaraLength": "19",
+                "_haftaraLength2": "2",
                 "_haftara": "Isaiah 6:1 - 7:6; 9:5 - 9:6",
                 "_sephardic": "Isaiah 6:1 - 6:13"
             },
@@ -3629,6 +3634,8 @@
                 "maftirOffset": "303",
                 "_hebrew": "מִּשְׁפָּטִים",
                 "_verse": "Exodus 21:1 - 24:18",
+                "_haftaraLength": "15",
+                "_haftaraLength2": "2",
                 "_haftara": "Jeremiah 34:8 - 34:22; 33:25 - 33:26"
             },
             {
@@ -3828,6 +3835,7 @@
                 "_num": "19",
                 "_hebrew": "תְּרוּמָה",
                 "_verse": "Exodus 25:1 - 27:19",
+                "_haftaraLength": "20",
                 "_haftara": "Kings_1 5:26 - 6:13"
             },
             {
@@ -4027,6 +4035,7 @@
                 "_num": "20",
                 "_hebrew": "תְּצַוֶּה",
                 "_verse": "Exodus 27:20 - 30:10",
+                "_haftaraLength": "18",
                 "_haftara": "Ezekiel 43:10 - 43:27"
             },
             {
@@ -4226,6 +4235,7 @@
                 "_num": "21",
                 "_hebrew": "כִּי תִשָּׂא",
                 "_verse": "Exodus 30:11 - 34:35",
+                "_haftaraLength": "39",
                 "_haftara": "Kings_1 18:1 - 18:39",
                 "_sephardic": "Kings_1 18:20 - 18:39"
             },
@@ -4491,6 +4501,7 @@
                 "_num": "22",
                 "_hebrew": "וַיַּקְהֵל",
                 "_verse": "Exodus 35:1 - 38:20",
+                "_haftaraLength": "11",
                 "_haftara": "Kings_1 7:40 - 7:50",
                 "_sephardic": "Kings_1 7:13 - 7:26"
             },
@@ -4674,6 +4685,7 @@
                 "_num": "23",
                 "_hebrew": "פְקוּדֵי",
                 "_verse": "Exodus 38:21 - 40:38",
+                "_haftaraLength": "22",
                 "_haftara": "Kings_1 7:51 - 8:21",
                 "_sephardic": "Kings_1 7:40 - 7:50"
             },
@@ -4874,6 +4886,7 @@
                 "_num": "24",
                 "_hebrew": "וַיִּקְרָא",
                 "_verse": "Leviticus 1:1 - 5:26",
+                "_haftaraLength": "31",
                 "_haftara": "Isaiah 43:21 - 44:23"
             },
             {
@@ -5073,6 +5086,8 @@
                 "_num": "25",
                 "_hebrew": "צַו",
                 "_verse": "Leviticus 6:1 - 8:36",
+                "_haftaraLength": "17",
+                "_haftaraLength2": "2",
                 "_haftara": "Jeremiah 7:21 - 8:3; 9:22 - 9:23"
             },
             {
@@ -5272,6 +5287,7 @@
                 "_num": "26",
                 "_hebrew": "שְּׁמִינִי",
                 "_verse": "Leviticus 9:1 - 11:47",
+                "_haftaraLength": "40",
                 "_haftara": "Samuel_2 6:1 - 7:17",
                 "_sephardic": "Samuel_1 6:1 - 6:19"
             },
@@ -5480,6 +5496,7 @@
                 "_num": "27",
                 "_hebrew": "תַזְרִיעַ",
                 "_verse": "Leviticus 12:1 - 13:59",
+                "_haftaraLength": "22",
                 "_haftara": "Kings_2 4:42 - 5:19"
             },
             {
@@ -5646,6 +5663,7 @@
                 "_num": "28",
                 "_hebrew": "מְּצֹרָע",
                 "_verse": "Leviticus 14:1 - 15:33",
+                "_haftaraLength": "18",
                 "_haftara": "Kings_2 7:3 - 7:20"
             },
             {
@@ -5853,6 +5871,7 @@
                 "_num": "29",
                 "_hebrew": "אַחֲרֵי מוֹת",
                 "_verse": "Leviticus 16:1 - 18:30",
+                "_haftaraLength": "16",
                 "_haftara": "Ezekiel 22:1 - 22:16",
                 "_sephardic": "Ezekiel 22:1 - 22:16"
             },
@@ -6061,6 +6080,7 @@
                 "_num": "30",
                 "_hebrew": "קְדשִׁים",
                 "_verse": "Leviticus 19:1 - 20:27",
+                "_haftaraLength": "9",
                 "_haftara": "Amos 9:7 - 9:15",
                 "_sephardic": "Ezekiel 20:2 - 20:20"
             },
@@ -6261,6 +6281,7 @@
                 "_num": "31",
                 "_hebrew": "אֱמוֹר",
                 "_verse": "Leviticus 21:1 - 24:23",
+                "_haftaraLength": "17",
                 "_haftara": "Ezekiel 44:15 - 44:31"
             },
             {
@@ -6468,6 +6489,7 @@
                 "_num": "32",
                 "_hebrew": "בְּהַר",
                 "_verse": "Leviticus 25:1 - 26:2",
+                "_haftaraLength": "22",
                 "_haftara": "Jeremiah 32:6 - 32:27"
             },
             {
@@ -6634,6 +6656,7 @@
                 "_num": "33",
                 "_hebrew": "בְּחֻקֹּתַי",
                 "_verse": "Leviticus 26:3 - 27:34",
+                "_haftaraLength": "17",
                 "_haftara": "Jeremiah 16:19 - 17:14"
             },
             {
@@ -6833,6 +6856,7 @@
                 "_num": "34",
                 "_hebrew": "בְּמִדְבַּר",
                 "_verse": "Numbers 1:1 - 4:20",
+                "_haftaraLength": "22",
                 "_haftara": "Hosea 2:1 - 2:22"
             },
             {
@@ -7032,6 +7056,7 @@
                 "_num": "35",
                 "_hebrew": "נָשׂא",
                 "_verse": "Numbers 4:21 - 7:89",
+                "_haftaraLength": "24",
                 "_haftara": "Judges 13:2 - 13:25"
             },
             {
@@ -7231,6 +7256,7 @@
                 "_num": "36",
                 "_hebrew": "בְּהַעֲלֹתְךָ",
                 "_verse": "Numbers 8:1 - 12:16",
+                "_haftaraLength": "21",
                 "_haftara": "Zechariah 2:14 - 4:7"
             },
             {
@@ -7430,6 +7456,7 @@
                 "_num": "37",
                 "_hebrew": "שְׁלַח־לְךָ",
                 "_verse": "Numbers 13:1 - 15:41",
+                "_haftaraLength": "24",
                 "_haftara": "Joshua 2:1 - 2:24"
             },
             {
@@ -7629,6 +7656,7 @@
                 "_num": "38",
                 "_hebrew": "קוֹרַח",
                 "_verse": "Numbers 16:1 - 18:32",
+                "_haftaraLength": "24",
                 "_haftara": "Samuel_1 11:14 - 12:22"
             },
             {
@@ -7987,6 +8015,7 @@
                 "_num": "39",
                 "_hebrew": "חֻקַּת",
                 "_verse": "Numbers 19:1 - 22:1",
+                "_haftaraLength": "33",
                 "_haftara": "Judges 11:1 - 11:33"
             },
             {
@@ -8263,6 +8292,7 @@
                 "maftirOffset": "208",
                 "_hebrew": "בָּלָק",
                 "_verse": "Numbers 22:2 - 25:9",
+                "_haftaraLength": "17",
                 "_haftara": "Micah 5:6 - 6:8"
             },
             {
@@ -8462,6 +8492,7 @@
                 "_num": "41",
                 "_hebrew": "פִּינְחָס",
                 "_verse": "Numbers 25:10 - 30:1",
+                "_haftaraLength": "22",
                 "_haftara": "Kings_1 18:46 - 19:21"
             },
             {
@@ -8661,6 +8692,7 @@
                 "_num": "42",
                 "_hebrew": "מַּטּוֹת",
                 "_verse": "Numbers 30:2 - 32:42",
+                "_haftaraLength": "22",
                 "_haftara": "Jeremiah 1:1 - 2:3"
             },
             {
@@ -8819,6 +8851,8 @@
                 "_num": "43",
                 "_hebrew": "מַסְעֵי",
                 "_verse": "Numbers 33:1 - 36:13",
+                "_haftaraLength": "25",
+                "_haftaraLength2": "2",
                 "_haftara": "Jeremiah 2:4 - 2:28; 3:3 - 3:5",
                 "_sephardic": "Jeremiah 2:4 - 28; 4:1 - 4:2"
             },
@@ -9019,6 +9053,7 @@
                 "_num": "44",
                 "_hebrew": "דְּבָרִים",
                 "_verse": "Deuteronomy 1:1 - 3:22",
+                "_haftaraLength": "27",
                 "_haftara": "Isaiah 1:1 - 1:27"
             },
             {
@@ -9359,6 +9394,7 @@
                 "_num": "45",
                 "_hebrew": "וָאֶתְחַנַּן",
                 "_verse": "Deuteronomy 3:23 - 7:11",
+                "_haftaraLength": "26",
                 "_haftara": "Isaiah 40:1 - 40:26"
             },
             {
@@ -9558,6 +9594,7 @@
                 "_num": "46",
                 "_hebrew": "עֵקֶב",
                 "_verse": "Deuteronomy 7:12 - 11:25",
+                "_haftaraLength": "27",
                 "_haftara": "Isaiah 49:14 - 51:3"
             },
             {
@@ -9757,6 +9794,7 @@
                 "_num": "47",
                 "_hebrew": "רְאֵה",
                 "_verse": "Deuteronomy 11:26 - 16:17",
+                "_haftaraLength": "12",
                 "_haftara": "Isaiah 54:11 - 55:5"
             },
             {
@@ -9956,6 +9994,7 @@
                 "_num": "48",
                 "_hebrew": "שׁוֹפְטִים",
                 "_verse": "Deuteronomy 16:18 - 21:9",
+                "_haftaraLength": "24",
                 "_haftara": "Isaiah 51:12 - 52:12"
             },
             {
@@ -10155,6 +10194,7 @@
                 "_num": "49",
                 "_hebrew": "כִּי־תֵצֵא",
                 "_verse": "Deuteronomy 21:10 - 25:19",
+                "_haftaraLength": "10",
                 "_haftara": "Isaiah 54:1 - 54:10"
             },
             {
@@ -10354,6 +10394,7 @@
                 "_num": "50",
                 "_hebrew": "כִּי־תָבוֹא",
                 "_verse": "Deuteronomy 26:1 - 29:8",
+                "_haftaraLength": "22",
                 "_haftara": "Isaiah 60:1 - 60:22"
             },
             {
@@ -10480,6 +10521,7 @@
                 "_num": "51",
                 "_hebrew": "נִצָּבִים",
                 "_verse": "Deuteronomy 29:9 - 30:20",
+                "_haftaraLength": "23",
                 "_haftara": "Isaiah 61:10 - 63:9"
             },
             {
@@ -10606,6 +10648,7 @@
                 "_num": "52",
                 "_hebrew": "וַיֵּלֶךְ",
                 "_verse": "Deuteronomy 31:1 - 31:30",
+                "_haftaraLength": "13",
                 "_haftara": "Joel 2:15 - 2:27"
             },
             {
@@ -10732,6 +10775,7 @@
                 "_num": "53",
                 "_hebrew": "הַאֲזִינוּ",
                 "_verse": "Deuteronomy 32:1 - 32:52",
+                "_haftaraLength": "51",
                 "_haftara": "Samuel_2 22:1 - 22:51"
             },
             {
@@ -10785,6 +10829,7 @@
                 "_num": "54",
                 "_hebrew": "וְזֹאת הַבְּרָכָה",
                 "_verse": "Deuteronomy 33:1 - 34:12",
+                "_haftaraLength": "18",
                 "_haftara": "Joshua 1:1 - 1:18",
                 "_sephardic": "Joshua 1:1 - 1:9"
             }
