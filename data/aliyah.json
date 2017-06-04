@@ -1001,7 +1001,9 @@
                 "_num": "5",
                 "_hebrew": "חַיֵּי שָֹרָה",
                 "_verse": "Genesis 23:1 - 25:18",
-                "_haftara": "Kings_1 1:1 - 1:31"
+                "_haftara": "Kings_1 1:1 - 1:31",
+                "_haftaraLength": "31"
+
             },
             {
                 "fullkriyah": {
@@ -1200,6 +1202,7 @@
                 "maftirOffset": "42",
                 "_hebrew": "תּוֹלְדוֹת",
                 "_verse": "Genesis 25:19 - 28:9",
+                "_haftaraLength": "21",
                 "_haftara": "Malachi 1:1 - 2:7"
             },
             {
@@ -1400,6 +1403,7 @@
                 "_hebrew": "וַיֵּצֵא",
                 "_verse": "Genesis 28:10 - 32:3",
                 "_haftara": "Hosea 12:13 - 14:10",
+                "_haftaraLength": "28",
                 "_sephardic": "Hosea 11:7 - 12:12"
             },
             {
@@ -1599,6 +1603,7 @@
                 "_num": "8",
                 "_hebrew": "וַיִּשְׁלַח",
                 "_verse": "Genesis 32:4 - 36:43",
+                "_haftaraLength": "21",
                 "_haftara": "Obadiah 1:1 - 1:21"
             },
             {
@@ -1798,6 +1803,7 @@
                 "_num": "9",
                 "_hebrew": "וַיֵּשֶׁב",
                 "_verse": "Genesis 37:1 - 40:23",
+                "_haftaraLength": "19",
                 "_haftara": "Amos 2:6 - 3:8"
             },
             {
@@ -1997,6 +2003,7 @@
                 "_num": "10",
                 "_hebrew": "מִקֵּץ",
                 "_verse": "Genesis 41:1 - 44:17",
+                "_haftaraLength": "15",
                 "_haftara": "Kings_1 3:15 - 4:1"
             },
             {
@@ -2196,6 +2203,7 @@
                 "_num": "11",
                 "_hebrew": "וַיִּגַּשׁ",
                 "_verse": "Genesis 44:18 - 47:27",
+                "_haftaraLength": "14",
                 "_haftara": "Ezekiel 37:15 - 37:28"
             },
             {
@@ -2395,6 +2403,7 @@
                 "_num": "12",
                 "_hebrew": "וַיְחִי",
                 "_verse": "Genesis 47:28 - 50:26",
+                "_haftaraLength": "12",
                 "_haftara": "Kings_1 2:1 - 2:12"
             },
             {
@@ -2594,6 +2603,8 @@
                 "maftirOffset": "291",
                 "_hebrew": "שְׁמוֹת",
                 "_verse": "Exodus 1:1 - 6:1",
+                "_haftaraLength": "21",
+                "_haftaraLength2": "2",
                 "_haftara": "Isaiah 27:6 - 28:13; 29:22 - 29:23",
                 "_sephardic": "Jeremiah 1:1 - 2:3"
             },

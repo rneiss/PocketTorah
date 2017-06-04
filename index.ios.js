@@ -146,7 +146,7 @@ class TorahReadingsScreen extends React.Component {
     var parshahArray = aliyahData.parshiot.parsha.map(x => x);
 
     //create button for each parsha
-    var content = parshahArray.map((obj) => (<CustomButton doOnPress={() => navigate('AliyahSelectScreen', { parshah: obj._id, haftara: obj._haftara, haftaraLength: obj._haftaraLength,  maftirOffset: obj.maftirOffset, aliyot: obj.fullkriyah.aliyah, originatingBook: obj._verse.split(" ")[0] })} buttonTitle={obj._id} />) );
+    var content = parshahArray.map((obj) => (<CustomButton doOnPress={() => navigate('AliyahSelectScreen', { parshah: obj._id, haftara: obj._haftara, haftaraLength: obj._haftaraLength, haftaraLength2: obj._haftaraLength2,  maftirOffset: obj.maftirOffset, aliyot: obj.fullkriyah.aliyah, originatingBook: obj._verse.split(" ")[0] })} buttonTitle={obj._id} />) );
 
     const { params } = this.props.navigation.state;
     const { navigate } = this.props.navigation;
@@ -172,9 +172,13 @@ class AliyahSelectScreen extends React.Component {
       var hafTitle = params.haftara.split(' ')[0];
       var hafStart = params.haftara.split(' ')[1];
       var hafEnd = params.haftara.split(' ')[3];
+      if (params.haftaraLength2) {
+        var hafStart2 = params.haftara.split(';')[1].split(' ')[1];
+        var hafEnd2 = params.haftara.split(';')[1].split(' ')[3];
+      }
 
       content.push(
-        <CustomButton doOnPress={() => navigate('PlayViewScreen', {parshah: hafTitle, aliyotStart: hafStart, aliyotEnd: hafEnd, length: params.haftaraLength, title: params.parshah, originatingBook: hafTitle, aliyahNum: "H" })} buttonTitle={"Haftarah"+": "+hafTitle+" "+hafStart+"-"+hafEnd} />
+        <CustomButton doOnPress={() => navigate('PlayViewScreen', {parshah: hafTitle, hafStart2: hafStart2, hafEnd2: hafEnd2, aliyotStart: hafStart, aliyotEnd: hafEnd, length: params.haftaraLength, length2: params.haftaraLength2, title: params.parshah, originatingBook: hafTitle, aliyahNum: "H" })} buttonTitle={"Haftarah"+": "+hafTitle+" "+hafStart+"-"+hafEnd} />
       );
     }
     return (
@@ -382,7 +386,7 @@ class PlayViewScreen extends React.Component {
          </View>
         </Modal>
           <ScrollView>
-            <TextFile changeAudioTime={this.changeAudioTime} translationFlag={this.state.translationOn} tikkunFlag={this.state.tikkunOn} textSizeMultiplier={this.state.textSizeMultiplier} activeWordIndex={this.state.activeWordIndex} maftirWordOffset={this.state.maftirWordOffset} originatingBook={params.originatingBook} sectionLength={params.length} chapterStartIndex={chapterStartIndex} verseStartIndex={verseStartIndex} />
+            <TextFile changeAudioTime={this.changeAudioTime} translationFlag={this.state.translationOn} tikkunFlag={this.state.tikkunOn} textSizeMultiplier={this.state.textSizeMultiplier} activeWordIndex={this.state.activeWordIndex} maftirWordOffset={this.state.maftirWordOffset} originatingBook={params.originatingBook} sectionLength={params.length} chapterStartIndex={chapterStartIndex} verseStartIndex={verseStartIndex} length2={params.length2} hafStart2={params.hafStart2} />
           </ScrollView>
           <View style={styles.footer}>
             {this.state.audioPlaying ? <CustomButton style={styles.footerButton} doOnPress={() => this.toggleAudio('pause')} buttonTitle="Pause" /> : <CustomButton style={styles.footerButton} doOnPress={() => this.toggleAudio('play')} buttonTitle="Play" /> }
@@ -486,7 +490,7 @@ render() {
   var selectedBook = bookText(this.props.originatingBook);
   var selectedTrans = bookText(this.props.originatingBook + "Trans");
   return (
-    <View style={styles.text}><Verses changeAudioTime={this.props.changeAudioTime} translationFlag={this.props.translationFlag} tikkunFlag={this.props.tikkunFlag} textSizeMultiplier={this.props.textSizeMultiplier} activeWordIndex={this.props.activeWordIndex} maftirWordOffset={this.props.maftirWordOffset} book={selectedBook} transBook={selectedTrans} chapterStart={this.props.chapterStartIndex} verseStart={this.props.verseStartIndex} length={this.props.sectionLength} /></View>
+    <View style={styles.text}><Verses changeAudioTime={this.props.changeAudioTime} translationFlag={this.props.translationFlag} tikkunFlag={this.props.tikkunFlag} textSizeMultiplier={this.props.textSizeMultiplier} activeWordIndex={this.props.activeWordIndex} maftirWordOffset={this.props.maftirWordOffset} book={selectedBook} transBook={selectedTrans} chapterStart={this.props.chapterStartIndex} verseStart={this.props.verseStartIndex} length={this.props.sectionLength} length2={this.props.length2} hafStart2={this.props.hafStart2}  /></View>
   )
 }
 }
@@ -559,6 +563,29 @@ class Verses extends React.Component {
 
           lastWordIndex = lastWordIndex + book.c[curChapter].v[curVerse].w.length;
           curVerse = curVerse + 1;
+        }
+
+        if (this.props.length2) {
+          var curChapter = parseInt(this.props.hafStart2.split(':')[0])-1;
+          var curVerse = parseInt(this.props.hafStart2.split(':')[1])-1;
+          for (z = 0; z < this.props.length2; z++) {
+            if (!book.c[curChapter].v[curVerse]) {
+              curChapter = curChapter + 1;
+              curVerse = 0;
+            }
+            verseText.push(
+              this.getVerseWords(book.c[curChapter].v[curVerse],this.props.activeWordIndex,lastWordIndex,curChapter,curVerse)
+            );
+            if (this.props.translationFlag) {
+              verseText.push(
+                <View><Text>{transBook.text[curChapter][curVerse]}</Text></View>
+              );
+            }
+
+            lastWordIndex = lastWordIndex + book.c[curChapter].v[curVerse].w.length;
+            curVerse = curVerse + 1;
+          }
+
         }
 
   return (<View style={styles.text}>{verseText}</View>);
