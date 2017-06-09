@@ -22,6 +22,10 @@ import {
 var RNFS = require('react-native-fs');
 timeChecker = "";
 
+var reactMixin = require('react-mixin');
+var TimerMixin = require('react-timer-mixin');
+
+
 import {
   StackNavigator,
 } from 'react-navigation';
@@ -121,9 +125,6 @@ class HomeScreen extends React.Component {
     let parshahLookup;
 
     for (q = 0; q < aliyahData.parshiot.parsha.length; q++) {
-      console.log(q)
-      console.log(aliyahData.parshiot.parsha[q]._id)
-      console.log(parashah.name)
 
       if (aliyahData.parshiot.parsha[q]._id.replace(/[ ’]/g, '\'') == parashah.name ) {
         parshahLookup = aliyahData.parshiot.parsha[q];
@@ -153,6 +154,18 @@ class AboutScreen extends React.Component {
         <Text>PocketTorah is a labor of love maintained by Russel Neiss & Charlie Schwartz.</Text>
         <Text>Initially funded by the Jewish New Media Innovation Fund, PocketTorah is designed to help you learn the weekly Torah and Haftarah portions anywhere, at any time, for free.</Text>
         <Text>If you like it, or find it useful, please consider making a donation to the Jewish charity of your choice.</Text>
+        <Text>Torah Readers:</Text>
+        <Text>
+          <Text>Etta  Abramson</Text>
+          <Text>Joshua Foster</Text>
+          <Text>Eitan Konigsberg</Text>
+          <Text>Eytan Kurshan</Text>
+          <Text>Ari Lucas</Text>
+          <Text>Rabbi Ita Paskind</Text>
+          <Text>Rebecca Russo</Text>
+          <Text>Joshua Schwartz</Text>
+          <Text>Abigail Teller</Text>
+        </Text>
       </View>
     );
   }
@@ -238,7 +251,8 @@ class PlayViewScreen extends React.Component {
       tikkunOn: false,
       modalVisible: false,
       textSizeMultiplier: 1,
-      maftirWordOffset: 0
+      maftirWordOffset: 0,
+      currentAudioTime: 0,
     };
     this.changeAudioTime = this.changeAudioTime.bind(this);
 
@@ -247,7 +261,7 @@ class PlayViewScreen extends React.Component {
 
 
   checkTime() {
-    clearInterval(timeChecker);
+    this.clearInterval(timeChecker);
 
     var wordIndex = this.state.activeWordIndex;
     if (!this.state.audio || !this.state.labels ) { return }
@@ -260,7 +274,7 @@ class PlayViewScreen extends React.Component {
         });
       }
     });
-    timeChecker = setTimeout(() => {this.checkTime()});
+    timeChecker = this.setTimeout(() => {this.checkTime()});
 
   }
 
@@ -276,6 +290,14 @@ class PlayViewScreen extends React.Component {
 
       this.state.audio.play();
       this.setState({audioPlaying: true});
+
+      this.setInterval( () => {
+        this.state.audio.getCurrentTime((curTime) =>  {
+            this.setState({
+              currentAudioTime: curTime
+            });
+        });
+     }, 50);
 
     }
     else {
@@ -379,7 +401,7 @@ class PlayViewScreen extends React.Component {
       var wordFontSize = 36*parseFloat(this.state.textSizeMultiplier);
       var stamFontSize = 30*parseFloat(this.state.textSizeMultiplier);
 
-      this.checkTime(1000);
+
 
       return (
         <View style={{flex: 1}}>
@@ -406,8 +428,9 @@ class PlayViewScreen extends React.Component {
           </View>
          </View>
         </Modal>
+          <Text>{this.state.currentAudioTime}</Text>
           <ScrollView>
-            <TextFile changeAudioTime={this.changeAudioTime} translationFlag={this.state.translationOn} tikkunFlag={this.state.tikkunOn} textSizeMultiplier={this.state.textSizeMultiplier} activeWordIndex={this.state.activeWordIndex} maftirWordOffset={this.state.maftirWordOffset} originatingBook={params.originatingBook} sectionLength={params.length} chapterStartIndex={chapterStartIndex} verseStartIndex={verseStartIndex} length2={params.length2} hafStart2={params.hafStart2} />
+            <TextFile changeAudioTime={this.changeAudioTime} translationFlag={this.state.translationOn} tikkunFlag={this.state.tikkunOn} textSizeMultiplier={this.state.textSizeMultiplier} currentAudioTime={this.state.currentAudioTime} activeWordIndex={this.state.activeWordIndex} labels={this.state.labels} maftirWordOffset={this.state.maftirWordOffset} originatingBook={params.originatingBook} sectionLength={params.length} chapterStartIndex={chapterStartIndex} verseStartIndex={verseStartIndex} length2={params.length2} hafStart2={params.hafStart2} />
           </ScrollView>
           <View style={styles.footer}>
             {this.state.audioPlaying ? <CustomButton style={styles.footerButton} doOnPress={() => this.toggleAudio('pause')} buttonTitle="Pause" /> : <CustomButton style={styles.footerButton} doOnPress={() => this.toggleAudio('play')} buttonTitle="Play" /> }
@@ -419,6 +442,8 @@ class PlayViewScreen extends React.Component {
     }
   }
 }
+reactMixin(PlayViewScreen.prototype, TimerMixin);
+
 
 class TextFile extends React.Component {
 render() {
@@ -511,7 +536,7 @@ render() {
   var selectedBook = bookText(this.props.originatingBook);
   var selectedTrans = bookText(this.props.originatingBook + "Trans");
   return (
-    <View style={styles.text}><Verses changeAudioTime={this.props.changeAudioTime} translationFlag={this.props.translationFlag} tikkunFlag={this.props.tikkunFlag} textSizeMultiplier={this.props.textSizeMultiplier} activeWordIndex={this.props.activeWordIndex} maftirWordOffset={this.props.maftirWordOffset} book={selectedBook} transBook={selectedTrans} chapterStart={this.props.chapterStartIndex} verseStart={this.props.verseStartIndex} length={this.props.sectionLength} length2={this.props.length2} hafStart2={this.props.hafStart2}  /></View>
+    <View style={styles.text}><Verses changeAudioTime={this.props.changeAudioTime} translationFlag={this.props.translationFlag} tikkunFlag={this.props.tikkunFlag} textSizeMultiplier={this.props.textSizeMultiplier} currentAudioTime={this.props.currentAudioTime} activeWordIndex={this.props.activeWordIndex} labels={this.props.labels} maftirWordOffset={this.props.maftirWordOffset} book={selectedBook} transBook={selectedTrans} chapterStart={this.props.chapterStartIndex} verseStart={this.props.verseStartIndex} length={this.props.sectionLength} length2={this.props.length2} hafStart2={this.props.hafStart2}  /></View>
   )
 }
 }
@@ -519,7 +544,7 @@ render() {
 
 class Verses extends React.Component {
 
-  getVerseWords(verse, activeWordIndex, curWordIndex, curChapterIndex, curVerseIndex,) {
+  getVerseWords(verse, labels, curWordIndex, curChapterIndex, curVerseIndex,) {
     var maftirWordOffset = parseInt(this.props.maftirWordOffset);
     if (this.props.tikkunFlag) {
 
@@ -529,7 +554,7 @@ class Verses extends React.Component {
           <TouchableOpacity onPress={() => {
             this.props.changeAudioTime(curWordIndex + i + maftirWordOffset)
           }}>
-            <Text style={curWordIndex + i + maftirWordOffset == activeWordIndex ? [styles.stam, styles.active, {fontSize: 30*this.props.textSizeMultiplier}] : [styles.stam,{fontSize: 30*this.props.textSizeMultiplier}]}>
+            <Text style={parseFloat(this.props.labels[curWordIndex + i + maftirWordOffset]) < this.props.currentAudioTime && parseFloat(this.props.labels[curWordIndex + i + maftirWordOffset+1]) > this.props.currentAudioTime ? [styles.stam, styles.active, {fontSize: 30*this.props.textSizeMultiplier}] : [styles.stam,{fontSize: 30*this.props.textSizeMultiplier}]}>
               {verse.w[i].replace(/\//g, '').replace(/[\u0591-\u05C7]/g,"")}
             </Text>
           </TouchableOpacity>
@@ -547,7 +572,7 @@ class Verses extends React.Component {
           <TouchableOpacity key={curWordIndex + i + maftirWordOffset} onPress={() => {
             this.props.changeAudioTime(curWordIndex + i + maftirWordOffset)
           }}>
-            <Text style={curWordIndex + i + maftirWordOffset == activeWordIndex ? [styles.word, styles.active,{fontSize: 36*this.props.textSizeMultiplier}] : [styles.word,{fontSize: 36*this.props.textSizeMultiplier}]}>
+            <Text style={parseFloat(this.props.labels[curWordIndex + i + maftirWordOffset]) < this.props.currentAudioTime && parseFloat(this.props.labels[curWordIndex + i + maftirWordOffset+1]) > this.props.currentAudioTime ? [styles.word, styles.active,{fontSize: 36*this.props.textSizeMultiplier}] : [styles.word,{fontSize: 36*this.props.textSizeMultiplier}]}>
               {verse.w[i].replace(/\//g, '')}
             </Text>
           </TouchableOpacity>
