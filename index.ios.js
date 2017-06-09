@@ -12,7 +12,6 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
-  Alert,
   ActivityIndicator,
   Button,
   Modal,
@@ -99,9 +98,23 @@ class CustomButton extends React.Component {
   }
 }
 
+class FooterButton extends React.Component {
+  render() {
+    return (
+      <TouchableOpacity onPress={this.props.doOnPress} style={this.props.style ? this.props.style : null} >
+        <Text style={styles.footerButtonInner}>
+          {this.props.buttonTitle}
+        </Text>
+      </TouchableOpacity>
+    );
+  }
+}
+
+
+
 class HomeScreen extends React.Component {
   static navigationOptions = {
-    title: 'Home',
+    title:  "Home",
   };
   render() {
     const { navigate } = this.props.navigation;
@@ -247,7 +260,7 @@ class PlayViewScreen extends React.Component {
       labels: null,
       activeWordIndex:0,
       audioPlaying: false,
-      translationOn: true,
+      translationOn: false,
       tikkunOn: false,
       modalVisible: false,
       textSizeMultiplier: 1,
@@ -398,8 +411,8 @@ class PlayViewScreen extends React.Component {
       var verseStart = params.aliyotStart.split(':')[1];
       var chapterStartIndex = chapterStart - 1;
       var verseStartIndex = verseStart - 1;
-      var wordFontSize = 36*parseFloat(this.state.textSizeMultiplier);
-      var stamFontSize = 30*parseFloat(this.state.textSizeMultiplier);
+      var wordFontSize = 24*parseFloat(this.state.textSizeMultiplier);
+      var stamFontSize = 20*parseFloat(this.state.textSizeMultiplier);
 
 
 
@@ -413,29 +426,32 @@ class PlayViewScreen extends React.Component {
           >
          <View style={{marginTop: 22}}>
           <View>
-            <Text>Set Font Size:</Text>
-            <Slider minimumValue={.5} maximumValue={2} value={this.state.textSizeMultiplier} onValueChange={(value) => this.setState({textSizeMultiplier: value})} />
-            <Text style={[styles.word,{fontSize: wordFontSize}]}>בְּרֵאשִׁ֖ית </Text>
-            <Text style={[styles.stam,{fontSize: stamFontSize}]}>בראשית </Text>
+              <Text style={styles.modalHeader}>Settings</Text>
+            <View style={styles.modalSection}>
+              <Text>Font Size:</Text>
+              <Slider minimumValue={.5} maximumValue={2} value={this.state.textSizeMultiplier} onSlidingComplete={(value) => this.setState({textSizeMultiplier: value})} />
+              <Text style={[styles.word,{fontSize: wordFontSize}]}>בְּרֵאשִׁ֖ית </Text>
+              <Text style={[styles.stam,{fontSize: stamFontSize}]}>בראשית </Text>
+            </View>
+            <View style={styles.modalSection}>
+              <Text>Set Audio Speed:</Text>
+              <Slider minimumValue={.5} maximumValue={2} value={1} onValueChange={(value) => this.state.audio.setSpeed(value)} />
+            </View>
 
-            <Text>Set Audio Speed:</Text>
-            <Slider minimumValue={.5} maximumValue={2} value={1} onValueChange={(value) => this.state.audio.setSpeed(value)} />
-
-
-
-            <CustomButton doOnPress={() => this.toggleSettingsModal('close')} buttonTitle="Save Settings" />
+            <View style={styles.modalFooter}>
+              <CustomButton doOnPress={() => this.toggleSettingsModal('close')} buttonTitle="Save Settings" />
+            </View>
 
           </View>
          </View>
         </Modal>
-          <Text>{this.state.currentAudioTime}</Text>
           <ScrollView>
             <TextFile changeAudioTime={this.changeAudioTime} translationFlag={this.state.translationOn} tikkunFlag={this.state.tikkunOn} textSizeMultiplier={this.state.textSizeMultiplier} currentAudioTime={this.state.currentAudioTime} activeWordIndex={this.state.activeWordIndex} labels={this.state.labels} maftirWordOffset={this.state.maftirWordOffset} originatingBook={params.originatingBook} sectionLength={params.length} chapterStartIndex={chapterStartIndex} verseStartIndex={verseStartIndex} length2={params.length2} hafStart2={params.hafStart2} />
           </ScrollView>
           <View style={styles.footer}>
-            {this.state.audioPlaying ? <CustomButton style={styles.footerButton} doOnPress={() => this.toggleAudio('pause')} buttonTitle="Pause" /> : <CustomButton style={styles.footerButton} doOnPress={() => this.toggleAudio('play')} buttonTitle="Play" /> }
-            {this.state.translationOn ? <CustomButton style={styles.footerButton} doOnPress={() => this.toggleTranslation('off')} buttonTitle="Translation Off" /> : <CustomButton style={styles.footerButton} doOnPress={() => this.toggleTranslation('on')} buttonTitle="Translation On" /> }
-            {this.state.tikkunOn ? <CustomButton style={styles.footerButton} doOnPress={() => this.toggleTikkun('off')} buttonTitle="Toggle Tikkun" /> : <CustomButton style={styles.footerButton} doOnPress={() => this.toggleTikkun('on')} buttonTitle="Toggle Tikkun" /> }
+            {this.state.audioPlaying ? <FooterButton style={styles.footerButton} doOnPress={() => this.toggleAudio('pause')} buttonTitle="Pause" /> : <FooterButton style={styles.footerButton} doOnPress={() => this.toggleAudio('play')} buttonTitle="Play" /> }
+            {this.state.translationOn ? <FooterButton style={styles.footerButton} doOnPress={() => this.toggleTranslation('off')} buttonTitle="Translation Off" /> : <FooterButton style={styles.footerButton} doOnPress={() => this.toggleTranslation('on')} buttonTitle="Translation On" /> }
+            {this.state.tikkunOn ? <FooterButton style={styles.footerButton} doOnPress={() => this.toggleTikkun('off')} buttonTitle="Tikkun Off" /> : <FooterButton style={styles.footerButton} doOnPress={() => this.toggleTikkun('on')} buttonTitle="Tikkun On" /> }
           </View>
         </View>
       );
@@ -550,7 +566,7 @@ class Verses extends React.Component {
 
       var words = verse.w.map((word, i) =>
         <View style={styles.text}>
-          {i == 0 ? <Text>{curChapterIndex + 1}:{curVerseIndex + 1}</Text> : null}
+          {i == 0 ? <Text style={styles.verseNum}>{curChapterIndex + 1}:{curVerseIndex + 1}</Text> : null}
           <TouchableOpacity onPress={() => {
             this.props.changeAudioTime(curWordIndex + i + maftirWordOffset)
           }}>
@@ -568,7 +584,7 @@ class Verses extends React.Component {
 
       var words = verse.w.map((word, i) =>
         <View style={styles.text}>
-          {i == 0 ? <Text>{curChapterIndex + 1}:{curVerseIndex + 1}</Text> : null}
+          {i == 0 ? <Text style={styles.verseNum}>{curChapterIndex + 1}:{curVerseIndex + 1}</Text> : null}
           <TouchableOpacity key={curWordIndex + i + maftirWordOffset} onPress={() => {
             this.props.changeAudioTime(curWordIndex + i + maftirWordOffset)
           }}>
@@ -711,6 +727,35 @@ const styles = StyleSheet.create({
   footerButton: {
     flexGrow: 1,
     width: 10,
+    padding: 10,
+    alignItems: 'center',
+    backgroundColor: '#efeff2',
+    borderWidth: 1,
+    borderRightWidth: 0,
+    borderColor: '#d9d9de',
+
+  },
+  footerButtonInner: {
+    fontSize: 12,
+    textAlign: 'center',
+  },
+  verseNum: {
+    paddingTop: 10,
+    fontSize: 10,
+  },
+  modalHeader: {
+    fontSize: 17,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+  modalSection: {
+    borderColor: '#d9d9de',
+    borderTopWidth: 1,
+    marginTop: 10,
+    padding: 10,
+  },
+  modalFooter: {
+    marginTop: 50,
   }
 
 });
