@@ -163,22 +163,22 @@ class AboutScreen extends React.Component {
   };
   render() {
     return (
-      <View>
-        <Text>PocketTorah is a labor of love maintained by Russel Neiss & Charlie Schwartz.</Text>
-        <Text>Initially funded by the Jewish New Media Innovation Fund, PocketTorah is designed to help you learn the weekly Torah and Haftarah portions anywhere, at any time, for free.</Text>
-        <Text>If you like it, or find it useful, please consider making a donation to the Jewish charity of your choice.</Text>
-        <Text>Torah Readers:</Text>
-        <Text>
-          <Text>Etta  Abramson</Text>
-          <Text>Joshua Foster</Text>
-          <Text>Eitan Konigsberg</Text>
-          <Text>Eytan Kurshan</Text>
-          <Text>Ari Lucas</Text>
-          <Text>Rabbi Ita Paskind</Text>
-          <Text>Rebecca Russo</Text>
-          <Text>Joshua Schwartz</Text>
-          <Text>Abigail Teller</Text>
-        </Text>
+      <View style={styles.aboutPage}>
+        <Text style={styles.aboutPageText}>PocketTorah is a labor of love maintained by Russel Neiss & Charlie Schwartz.</Text>
+        <Text style={styles.aboutPageText}>Initially funded by the Jewish New Media Innovation Fund, PocketTorah is designed to help you learn the weekly Torah and Haftarah portions anywhere, at any time, for free.</Text>
+        <Text style={styles.aboutPageText}>If you like it, or find it useful, please consider making a donation to the Jewish charity of your choice.</Text>
+        <Text style={styles.aboutPageHeader}>Torah Readers:</Text>
+        <View>
+          <Text style={styles.aboutPageListItem}>Etta Abramson</Text>
+          <Text style={styles.aboutPageListItem}>Joshua Foster</Text>
+          <Text style={styles.aboutPageListItem}>Eitan Konigsberg</Text>
+          <Text style={styles.aboutPageListItem}>Eytan Kurshan</Text>
+          <Text style={styles.aboutPageListItem}>Ari Lucas</Text>
+          <Text style={styles.aboutPageListItem}>Rabbi Ita Paskind</Text>
+          <Text style={styles.aboutPageListItem}>Rebecca Russo</Text>
+          <Text style={styles.aboutPageListItem}>Joshua Schwartz</Text>
+          <Text style={styles.aboutPageListItem}>Abigail Teller</Text>
+        </View>
       </View>
     );
   }
@@ -756,8 +756,21 @@ const styles = StyleSheet.create({
   },
   modalFooter: {
     marginTop: 50,
-  }
-
+  },
+  aboutPage: {
+    margin: 10,
+  },
+  aboutPageText: {
+    marginTop: 10,
+  },
+  aboutPageHeader: {
+    fontWeight: "bold",
+    marginTop: 10,
+  },
+  aboutPageListItem: {
+    marginLeft: 10,
+    marginTop: 5,
+  },
 });
 
 AppRegistry.registerComponent('PocketTorah', () => PocketTorah);
