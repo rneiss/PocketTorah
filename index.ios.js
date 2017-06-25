@@ -225,7 +225,7 @@ class AliyahSelectScreen extends React.Component {
       }
 
       content.push(
-        <CustomButton doOnPress={() => navigate('PlayViewScreen', {parshah: hafTitle, hafStart2: hafStart2, hafEnd2: hafEnd2, aliyotStart: hafStart, aliyotEnd: hafEnd, length: params.haftaraLength, length2: params.haftaraLength2, title: params.parshah, originatingBook: hafTitle, aliyahNum: "H" })} buttonTitle={"Haftarah"+": "+hafTitle+" "+hafStart+"-"+hafEnd} />
+        <CustomButton doOnPress={() => navigate('PlayViewScreen', {parshah: hafTitle, hafStart2: hafStart2, hafEnd2: hafEnd2, aliyotStart: hafStart, aliyotEnd: hafEnd, length: params.haftaraLength, length2: params.haftaraLength2, title: params.parshah, originatingBook: hafTitle, aliyahNum: "H" })} buttonTitle={"Haftarah"+": "+hafTitle.replace(/_/g, ' ')+" "+hafStart+"-"+hafEnd} />
       );
     }
     return (

@@ -37,6 +37,7 @@
 		2DCD954D1E0B4F2C00145EB5 /* PocketTorahTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* PocketTorahTests.m */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		A17771741EFF71D1000FE150 /* splashScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = A17771731EFF71D1000FE150 /* splashScreen.png */; };
 		A18D4D721ECF979F00508ABD /* audio in Resources */ = {isa = PBXBuildFile; fileRef = A18D4D711ECF979F00508ABD /* audio */; };
 		A1D772081ED28A1800BFFEAC /* labels in Resources */ = {isa = PBXBuildFile; fileRef = A1D772071ED28A1800BFFEAC /* labels */; };
 		DBD0945DBBAE4E8B87F82056 /* TaameyFrank-taamim-fix.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A78D586241FA4133B3AE31EB /* TaameyFrank-taamim-fix.ttf */; };
@@ -277,6 +278,7 @@
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		8435D9D5E26F4E68A30C477F /* libRNFS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFS.a; sourceTree = "<group>"; };
+		A17771731EFF71D1000FE150 /* splashScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splashScreen.png; sourceTree = "<group>"; };
 		A18D4D711ECF979F00508ABD /* audio */ = {isa = PBXFileReference; lastKnownFileType = folder; path = audio; sourceTree = "<group>"; };
 		A1D772071ED28A1800BFFEAC /* labels */ = {isa = PBXFileReference; lastKnownFileType = folder; path = labels; sourceTree = "<group>"; };
 		A78D586241FA4133B3AE31EB /* TaameyFrank-taamim-fix.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "TaameyFrank-taamim-fix.ttf"; path = "../fonts/TaameyFrank-taamim-fix.ttf"; sourceTree = "<group>"; };
@@ -504,6 +506,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				A17771731EFF71D1000FE150 /* splashScreen.png */,
 				A1D772071ED28A1800BFFEAC /* labels */,
 				A18D4D711ECF979F00508ABD /* audio */,
 				13B07FAE1A68108700A75B9A /* PocketTorah */,
@@ -930,6 +933,7 @@
 				DBD0945DBBAE4E8B87F82056 /* TaameyFrank-taamim-fix.ttf in Resources */,
 				A18D4D721ECF979F00508ABD /* audio in Resources */,
 				F0F4A0D6B5F241A2AA7E1C26 /* stamashkenazclm-webfont.ttf in Resources */,
+				A17771741EFF71D1000FE150 /* splashScreen.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
