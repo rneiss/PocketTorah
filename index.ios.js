@@ -150,7 +150,7 @@ class HomeScreen extends React.Component {
     return (
       <ScrollView>
         <CustomButton doOnPress={() => navigate('TorahReadingsScreen')} buttonTitle="List of Torah Readings" />
-        <CustomButton doOnPress={() => navigate('AliyahSelectScreen',{ parshah: parshahLookup._id, haftara: parshahLookup._haftara, haftaraLength: parshahLookup._haftaraLength, haftaraLength2: parshahLookup._haftaraLength2,  maftirOffset: parshahLookup.maftirOffset, aliyot: parshahLookup.fullkriyah.aliyah, originatingBook: parshahLookup._verse.split(" ")[0] })}  buttonTitle="This Week's Torah Readings" />
+        <CustomButton doOnPress={() => navigate('AliyahSelectScreen',{ parshah: parshahLookup._id, haftara: parshahLookup._haftara, haftaraLength: parshahLookup._haftaraLength, haftaraLength2: parshahLookup._haftaraLength2, maftirOffset: parshahLookup.maftirOffset, aliyot: parshahLookup.fullkriyah.aliyah, originatingBook: parshahLookup._verse.split(" ")[0] })}  buttonTitle="This Week's Torah Readings" />
         <CustomButton doOnPress={() => navigate('About')} buttonTitle="About this App" />
       </ScrollView>
     );
@@ -193,7 +193,7 @@ class TorahReadingsScreen extends React.Component {
     var parshahArray = aliyahData.parshiot.parsha.map(x => x);
 
     //create button for each parsha
-    var content = parshahArray.map((obj) => (<CustomButton doOnPress={() => navigate('AliyahSelectScreen', { parshah: obj._id, haftara: obj._haftara, haftaraLength: obj._haftaraLength, haftaraLength2: obj._haftaraLength2,  maftirOffset: obj.maftirOffset, aliyot: obj.fullkriyah.aliyah, originatingBook: obj._verse.split(" ")[0] })} buttonTitle={obj._id} />) );
+    var content = parshahArray.map((obj) => (<CustomButton doOnPress={() => navigate('AliyahSelectScreen', { parshah: obj._id, haftara: obj._haftara, haftaraLength: obj._haftaraLength, haftaraLength2: obj._haftaraLength2, maftirOffset: obj.maftirOffset, aliyot: obj.fullkriyah.aliyah, originatingBook: obj._verse.split(" ")[0] })} buttonTitle={obj._id} />) );
 
     const { params } = this.props.navigation.state;
     const { navigate } = this.props.navigation;
@@ -214,7 +214,7 @@ class AliyahSelectScreen extends React.Component {
   render() {
     const { params } = this.props.navigation.state;
     const { navigate } = this.props.navigation;
-    var content = params.aliyot.map((obj) => (<CustomButton doOnPress={() => navigate('PlayViewScreen', { parshah: obj._id, aliyotStart: obj._begin, aliyotEnd: obj._end, length: obj._numverses, title: params.parshah, originatingBook: params.originatingBook, aliyahNum: obj._num })} buttonTitle={obj._num !="M" ? "Aliyah "+obj._num+": "+obj._begin+"-"+obj._end : "Maftir Aliyah"+": "+obj._begin+"-"+obj._end} />) );
+    var content = params.aliyot.map((obj) => (<CustomButton doOnPress={() => navigate('PlayViewScreen', { parshah: obj._id, aliyotStart: obj._begin, aliyotEnd: obj._end, length: obj._numverses, maftirOffset: params.maftirOffset, title: params.parshah, originatingBook: params.originatingBook, aliyahNum: obj._num })} buttonTitle={obj._num !="M" ? "Aliyah "+obj._num+": "+obj._begin+"-"+obj._end : "Maftir Aliyah"+": "+obj._begin+"-"+obj._end} />) );
     if (params.haftara) {
       var hafTitle = params.haftara.split(' ')[0];
       var hafStart = params.haftara.split(' ')[1];
