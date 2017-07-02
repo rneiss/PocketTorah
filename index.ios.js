@@ -229,9 +229,9 @@ class AliyahSelectScreen extends React.Component {
       );
     }
     return (
-      <View>
+      <ScrollView>
         {content}
-      </View>
+      </ScrollView>
     );
   }
 }
