@@ -581,7 +581,6 @@ class Verses extends React.Component {
     }
 
     else {
-
       var words = verse.w.map((word, i) =>
         <View style={styles.text}>
           {i == 0 ? <Text style={styles.verseNum}>{curChapterIndex + 1}:{curVerseIndex + 1}</Text> : null}
