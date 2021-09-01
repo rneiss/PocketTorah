@@ -1,0 +1,6 @@
+module Pods_PocketTorah {
+  umbrella header "Pods-PocketTorah-umbrella.h"
+
+  export *
+  module * { export * }
+}
