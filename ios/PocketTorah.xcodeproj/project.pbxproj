@@ -8,15 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* PocketTorahTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* PocketTorahTests.m */; };
-		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
+		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		17F61969377C482AA4CB0A3C /* stamashkenazclm-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EC1B1404933D46F8B2A5CFC5 /* stamashkenazclm-webfont.ttf */; };
 		18631497B1A273ECBCD43CA1 /* libPods-PocketTorah-PocketTorahTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BB987DF69236721452163B54 /* libPods-PocketTorah-PocketTorahTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		A1A30CDF26DEF28400F051CF /* audio in Resources */ = {isa = PBXBuildFile; fileRef = A1A30CDE26DEF28400F051CF /* audio */; };
 		A1A30CE326DEF29400F051CF /* labels in Resources */ = {isa = PBXBuildFile; fileRef = A1A30CE226DEF29300F051CF /* labels */; };
 		C3914450218AAFC547F4853C /* libPods-PocketTorah.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7280DBAC03DBC62323442EA4 /* libPods-PocketTorah.a */; };
-		17F61969377C482AA4CB0A3C /* stamashkenazclm-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EC1B1404933D46F8B2A5CFC5 /* stamashkenazclm-webfont.ttf */; };
 		F6113DFEE1954F8D9BE629A6 /* TaameyFrank-taamim-fix.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 87EF7F05CC9D46C3BAFF848D /* TaameyFrank-taamim-fix.ttf */; };
 /* End PBXBuildFile section */
 
@@ -36,7 +36,7 @@
 		00E356F21AD99517003FC87E /* PocketTorahTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PocketTorahTests.m; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* PocketTorah.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PocketTorah.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = PocketTorah/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = PocketTorah/AppDelegate.m; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.mm; path = PocketTorah/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = PocketTorah/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = PocketTorah/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = PocketTorah/main.m; sourceTree = "<group>"; };
@@ -44,14 +44,14 @@
 		7280DBAC03DBC62323442EA4 /* libPods-PocketTorah.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PocketTorah.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7404AE4E79B2F275F8B7DF1E /* Pods-PocketTorah.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketTorah.debug.xcconfig"; path = "Target Support Files/Pods-PocketTorah/Pods-PocketTorah.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = PocketTorah/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		87EF7F05CC9D46C3BAFF848D /* TaameyFrank-taamim-fix.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "TaameyFrank-taamim-fix.ttf"; path = "../fonts/TaameyFrank-taamim-fix.ttf"; sourceTree = "<group>"; };
 		A1A30CDE26DEF28400F051CF /* audio */ = {isa = PBXFileReference; lastKnownFileType = folder; path = audio; sourceTree = "<group>"; };
 		A1A30CE226DEF29300F051CF /* labels */ = {isa = PBXFileReference; lastKnownFileType = folder; name = labels; path = data/torah/labels; sourceTree = "<group>"; };
 		BB987DF69236721452163B54 /* libPods-PocketTorah-PocketTorahTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PocketTorah-PocketTorahTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5FD2AC2ADF33EAF3CA0BF8E /* Pods-PocketTorah.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketTorah.release.xcconfig"; path = "Target Support Files/Pods-PocketTorah/Pods-PocketTorah.release.xcconfig"; sourceTree = "<group>"; };
+		EC1B1404933D46F8B2A5CFC5 /* stamashkenazclm-webfont.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "stamashkenazclm-webfont.ttf"; path = "../fonts/stamashkenazclm-webfont.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F7792FFC99CB4370ADC0D201 /* Pods-PocketTorah-PocketTorahTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketTorah-PocketTorahTests.debug.xcconfig"; path = "Target Support Files/Pods-PocketTorah-PocketTorahTests/Pods-PocketTorah-PocketTorahTests.debug.xcconfig"; sourceTree = "<group>"; };
-		EC1B1404933D46F8B2A5CFC5 /* stamashkenazclm-webfont.ttf */ = {isa = PBXFileReference; name = "stamashkenazclm-webfont.ttf"; path = "../fonts/stamashkenazclm-webfont.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		87EF7F05CC9D46C3BAFF848D /* TaameyFrank-taamim-fix.ttf */ = {isa = PBXFileReference; name = "TaameyFrank-taamim-fix.ttf"; path = "../fonts/TaameyFrank-taamim-fix.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,7 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
-				13B07FB01A68108700A75B9A /* AppDelegate.m */,
+				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
@@ -160,14 +160,14 @@
 			sourceTree = "<group>";
 		};
 		9D49AC8DB40C4707ABF33932 /* Resources */ = {
-			isa = "PBXGroup";
+			isa = PBXGroup;
 			children = (
 				EC1B1404933D46F8B2A5CFC5 /* stamashkenazclm-webfont.ttf */,
 				87EF7F05CC9D46C3BAFF848D /* TaameyFrank-taamim-fix.ttf */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
 			path = "";
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -435,7 +435,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -611,12 +611,13 @@
 					"$(inherited)",
 				);
 				LIBRARY_SEARCH_PATHS = (
+					"$(SDKROOT)/usr/lib/swift",
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
-					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -669,11 +670,12 @@
 					"$(inherited)",
 				);
 				LIBRARY_SEARCH_PATHS = (
+					"$(SDKROOT)/usr/lib/swift",
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
-					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
