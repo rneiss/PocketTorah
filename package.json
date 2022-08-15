@@ -1,6 +1,6 @@
 {
   "name": "PocketTorah",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -10,28 +10,27 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "react": "17.0.2",
-    "react-mixin": "^2.0.2",
-    "react-native": "0.65.1",
-    "react-native-fs": "^2.18.0",
-    "react-native-gesture-handler": "^1.10.3",
-    "react-native-safe-area-context": "^3.3.0",
-    "react-native-screens": "^3.6.0",
-    "react-native-sound": "^0.11.1",
+    "react": "18.0.0",
+    "react-mixin": "^5.0.0",
+    "react-native": "0.69.4",
+    "react-native-fs": "^2.20.0",
+    "react-native-gesture-handler": "^2.5.0",
+    "react-native-safe-area-context": "^4.3.1",
+    "react-native-screens": "^3.15.0",
+    "react-native-sound": "^0.11.2",
     "react-navigation": "^4.4.4",
     "react-navigation-stack": "^2.10.4",
     "react-timer-mixin": "^0.13.4"
   },
   "devDependencies": {
-    "@babel/core": "7.15.0",
-    "@babel/runtime": "7.15.3",
-    "@react-native-community/eslint-config": "2.0.0",
-    "babel-jest": "26.6.3",
-    "eslint": "7.14.0",
-    "jest": "26.6.3",
-    "metro-react-native-babel-preset": "0.66.2",
-    "react-native-codegen": "^0.0.7",
-    "react-test-renderer": "17.0.2"
+    "@babel/core": "^7.18.10",
+    "@babel/runtime": "^7.18.9",
+    "@react-native-community/eslint-config": "^2.0.0",
+    "babel-jest": "^26.6.3",
+    "eslint": "^7.32.0",
+    "jest": "^26.6.3",
+    "metro-react-native-babel-preset": "^0.72.0",
+    "react-test-renderer": "18.0.0"
   },
   "jest": {
     "preset": "react-native"
