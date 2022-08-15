@@ -10,6 +10,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@hebcal/core": "^3.42.2",
+    "@hebcal/leyning": "^4.18.1",
     "react": "17.0.2",
     "react-mixin": "^2.0.2",
     "react-native": "0.65.1",
