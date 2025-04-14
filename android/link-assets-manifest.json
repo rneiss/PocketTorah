@@ -1,0 +1,13 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "fonts/Taamey_D.ttf",
+      "sha1": "9c06290612af28435aed3c67475c17375a0c7670"
+    },
+    {
+      "path": "fonts/StamAshkenazCLM.ttf",
+      "sha1": "e7921e30f92c274525ffa6c8beec2a8d8f449c91"
+    }
+  ]
+}

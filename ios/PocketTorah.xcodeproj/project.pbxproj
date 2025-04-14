@@ -16,14 +16,14 @@
 		A1A30CDF26DEF28400F051CF /* audio in Resources */ = {isa = PBXBuildFile; fileRef = A1A30CDE26DEF28400F051CF /* audio */; };
 		A1A30CE326DEF29400F051CF /* labels in Resources */ = {isa = PBXBuildFile; fileRef = A1A30CE226DEF29300F051CF /* labels */; };
 		C3914450218AAFC547F4853C /* libPods-PocketTorah.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7280DBAC03DBC62323442EA4 /* libPods-PocketTorah.a */; };
-		17F61969377C482AA4CB0A3C /* stamashkenazclm-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EC1B1404933D46F8B2A5CFC5 /* stamashkenazclm-webfont.ttf */; };
-		F6113DFEE1954F8D9BE629A6 /* TaameyFrank-taamim-fix.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 87EF7F05CC9D46C3BAFF848D /* TaameyFrank-taamim-fix.ttf */; };
+		F3C06901BBAC4D1DB304F694 /* Taamey_D.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = 631AFEBA9B2E4F3CAF754931 /* Taamey_D.woff2 */; };
+		32F59A87C27E428E9EA9B039 /* StamAshkenazCLM.woff2 in Resources */ = {isa = PBXBuildFile; fileRef = 67EB7A91D7754D4EBF28E3F3 /* StamAshkenazCLM.woff2 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		00E356F41AD99517003FC87E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			containerPortal = 83CBB9F71A601CBA00E9B192;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = PocketTorah;
@@ -50,8 +50,8 @@
 		E5FD2AC2ADF33EAF3CA0BF8E /* Pods-PocketTorah.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketTorah.release.xcconfig"; path = "Target Support Files/Pods-PocketTorah/Pods-PocketTorah.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F7792FFC99CB4370ADC0D201 /* Pods-PocketTorah-PocketTorahTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketTorah-PocketTorahTests.debug.xcconfig"; path = "Target Support Files/Pods-PocketTorah-PocketTorahTests/Pods-PocketTorah-PocketTorahTests.debug.xcconfig"; sourceTree = "<group>"; };
-		EC1B1404933D46F8B2A5CFC5 /* stamashkenazclm-webfont.ttf */ = {isa = PBXFileReference; name = "stamashkenazclm-webfont.ttf"; path = "../fonts/stamashkenazclm-webfont.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		87EF7F05CC9D46C3BAFF848D /* TaameyFrank-taamim-fix.ttf */ = {isa = PBXFileReference; name = "TaameyFrank-taamim-fix.ttf"; path = "../fonts/TaameyFrank-taamim-fix.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		631AFEBA9B2E4F3CAF754931 /* Taamey_D.woff2 */ = {isa = PBXFileReference; name = "Taamey_D.woff2"; path = "../fonts/Taamey_D.woff2"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		67EB7A91D7754D4EBF28E3F3 /* StamAshkenazCLM.woff2 */ = {isa = PBXFileReference; name = "StamAshkenazCLM.woff2"; path = "../fonts/StamAshkenazCLM.woff2"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,7 +132,7 @@
 			name = Libraries;
 			sourceTree = "<group>";
 		};
-		83CBB9F61A601CBA00E9B192 = {
+		83CBB9F61A601CBA00E9B192 /* PBXGroup */ = {
 			isa = PBXGroup;
 			children = (
 				A1A30CE226DEF29300F051CF /* labels */,
@@ -160,14 +160,14 @@
 			sourceTree = "<group>";
 		};
 		9D49AC8DB40C4707ABF33932 /* Resources */ = {
-			isa = "PBXGroup";
+			isa = PBXGroup;
 			children = (
-				EC1B1404933D46F8B2A5CFC5 /* stamashkenazclm-webfont.ttf */,
-				87EF7F05CC9D46C3BAFF848D /* TaameyFrank-taamim-fix.ttf */,
+				631AFEBA9B2E4F3CAF754931 /* Taamey_D.woff2 */,
+				67EB7A91D7754D4EBF28E3F3 /* StamAshkenazCLM.woff2 */,
 			);
 			name = Resources;
-			sourceTree = "<group>";
 			path = "";
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -218,14 +218,14 @@
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		83CBB9F71A601CBA00E9B192 /* Project object */ = {
+		83CBB9F71A601CBA00E9B192 = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1210;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
-						TestTargetID = 13B07F861A680F5B00A75B9A;
+						TestTargetID = 13B07F861A680F5B00A75B9A /* PocketTorah */;
 					};
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1120;
@@ -240,7 +240,7 @@
 				en,
 				Base,
 			);
-			mainGroup = 83CBB9F61A601CBA00E9B192;
+			mainGroup = 83CBB9F61A601CBA00E9B192 /* PBXGroup */;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -267,8 +267,8 @@
 				A1A30CE326DEF29400F051CF /* labels in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				17F61969377C482AA4CB0A3C /* stamashkenazclm-webfont.ttf in Resources */,
-				F6113DFEE1954F8D9BE629A6 /* TaameyFrank-taamim-fix.ttf in Resources */,
+				F3C06901BBAC4D1DB304F694 /* Taamey_D.woff2 in Resources */,
+				32F59A87C27E428E9EA9B039 /* StamAshkenazCLM.woff2 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,7 +287,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+			shellScript = "set -e\n\nexport BUNDLE_COMMAND=webpack-bundle\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		05618B5C5538BC95F5F0A1E0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -461,7 +461,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = PocketTorahTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -485,7 +485,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = PocketTorahTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -589,7 +589,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -605,7 +605,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -654,7 +654,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -663,7 +663,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -711,5 +711,5 @@
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
+	rootObject = 83CBB9F71A601CBA00E9B192;
 }

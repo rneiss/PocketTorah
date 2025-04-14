@@ -35,6 +35,7 @@ local.properties
 node_modules/
 npm-debug.log
 yarn-error.log
+.yarn/
 
 # BUCK
 buck-out/
@@ -51,3 +52,9 @@ buck-out/
 fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
+
+/dist
+/data/audio/*/*.mp3
+/data/audio/index.json
+/data/torah/labels/*.json
+/data/torah/json/*.json

@@ -1,0 +1,3 @@
+[submodule "MAM-parsed"]
+	path = MAM-parsed
+	url = git@github.com:bdenckla/MAM-parsed.git

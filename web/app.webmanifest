@@ -1,0 +1,12 @@
+{
+  "name": "PocketTorah",
+  "icons": [
+    {
+      "src": "../icon.png",
+      "type": "image/png",
+      "sizes": "1012x1012"
+    }
+  ],
+  "start_url": "./",
+  "display": "standalone"
+}
